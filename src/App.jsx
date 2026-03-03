@@ -87,6 +87,16 @@ const SECTORS = [
       "US Navy annonce programme d'escorte de convois",
     ],
     exit: "PREMIER à sortir. Tanker rates collapse en 2-5 jours post-réouverture.",
+    histPattern: {
+      title: "Tanker War 1984-88 + Gulf War I 1990",
+      items: [
+        "1984-88 : 400+ navires attaqués dans le Golfe, assurances x3-5x, mais les tankers ont continué à naviguer. Rates élevés soutenus ~4 ans.",
+        "1990 : Rates spot +100% sur invasion Kuwait, normalisation rapide (<6 mois) post-libération.",
+        "2022-23 : Ukraine = tanker rates TNK +108%, INSW +98%, FRO +70% sur 12 mois (rerouting, sanctions).",
+        "⚡ Pattern clé : Le spike actuel est plus violent que 1990 car Hormuz est fermé de facto vs seulement menacé. Plus comparable à un scénario hybride Tanker War + Kippour.",
+      ],
+      analog: "Tanker War 1987 (attaques + mines Hormuz, US Navy escorte) — mais cette fois fermeture totale, pas juste harcèlement.",
+    },
   },
   {
     id: "oilgas", name: "O&G Canadien", icon: "🛢️", color: "#f59e0b", horizon: "Position (2-6 sem)",
@@ -112,6 +122,16 @@ const SECTORS = [
       "RSI divergence sur XEG — prix up, RSI down",
     ],
     exit: "Plus long que tankers (avantage TMX). Trimmer sur SPR/OPEC. Full exit sur cessez-le-feu.",
+    histPattern: {
+      title: "Gulf War I 1990 + Révolution Iran 1979",
+      items: [
+        "1990 : Brent $17→$46 (+170%) en 10 semaines. Retour à $20 dès Desert Storm (jan 1991). Spike total : 9 mois.",
+        "1979 : Brent $14→$39 (+179%). Recovery 2-3 ans. Mais contexte différent (pas de US shale, pas de SPR).",
+        "2003 Irak : Brent $28→$37 (+32%), retour en 3 mois. Victoire rapide = spike court.",
+        "⚡ Pattern clé : Le CDN O&G a un avantage structurel vs 1990 : TMX pipeline donne accès Pacifique, pas dépendant du Hormuz. Upside asymétrique.",
+      ],
+      analog: "Gulf War I (durée ~9 mois, +89% pétrole) reste le closest analog. Mais supply buffers modernes (US shale, SPR) limitent la hausse vs 1973/1979.",
+    },
   },
   {
     id: "gold", name: "Or / Gold", icon: "🥇", color: "#eab308", horizon: "Core + trade autour",
@@ -136,6 +156,17 @@ const SECTORS = [
       "VIX retombe sous niveaux pré-conflit",
     ],
     exit: "DERNIER à sortir. Core = keep. Trade le premium. Exit total si dé-escalation + Fed hawkish.",
+    histPattern: {
+      title: "Kippour 1973 + Révolution 1979 + Gulf War I",
+      items: [
+        "1973 : Or +47% — début d'un bull séculaire après Nixon décroche le dollar de l'or (1971).",
+        "1979 : Or +134% → $850/oz ATH (tenu 28 ans). Mais chute de -60% dans la décennie suivante quand la Fed de Volcker monte les taux.",
+        "1990 : Or +8-15% sur 2 mois, retour au pré-guerre en 6 mois. Spike court = résolution rapide.",
+        "2003 : Or +4% pré-guerre, -15% au début des frappes. Classic 'buy the rumor, sell the news.'",
+        "⚡ Pattern clé : Or spike en anticipation, pas pendant. Si tu n'étais pas long avant le 28 fév, le gros du move est peut-être déjà fait. Mais : contexte structurellement bullish (banques centrales acheteuses, dédollarisation).",
+      ],
+      analog: "Contexte le plus comparable à 1979 pour la taille du choc supply, mais le marché de l'or est déjà en bull séculaire. Risk = Fed hawkish comme Volcker post-1980.",
+    },
   },
   {
     id: "potash", name: "Fertilisants / Potash", icon: "🌾", color: "#22c55e", horizon: "Position (3-8 sem)",
@@ -159,6 +190,16 @@ const SECTORS = [
       "Volume drops sur NTR/MOS malgré prix hausse",
     ],
     exit: "SLEEPER PLAY. Tenir jusqu'en mai. Supply chain recovery plus lente que pétrole.",
+    histPattern: {
+      title: "Kippour 1973 + Ukraine 2022",
+      items: [
+        "1973 : Prix engrais doublent — l'énergie est 60-80% du coût de production des engrais azotés.",
+        "2022 Ukraine : NTR +35%, MOS +80%, CF +100%. Spike soutenu 6+ mois car Russie+Belarus = 40% potash mondial.",
+        "Recovery lente : les supply chains fertilisants prennent 6-12 mois à normaliser vs pétrole 2-4 mois.",
+        "⚡ Pattern clé : Fertilisants = proxy retardé du conflit. Le planting season (mar-mai) lock-in la demande. Même si Hormuz rouvre, les prix restent élevés plus longtemps.",
+      ],
+      analog: "Ukraine 2022 est le meilleur précédent. Natgas EU + supply chain disruption = NTR/MOS surperforment le pétrole sur 6 mois.",
+    },
   },
   {
     id: "gulf", name: "Gulf Short (Dubai/UAE)", icon: "🏗️", color: "#ef4444", horizon: "Swing (1-4 sem)",
@@ -183,6 +224,16 @@ const SECTORS = [
     ],
     exit: "SHORT TACTIQUE. Cover si vols + cessez-le-feu. Max 5-8% portfolio. Préférer short direct IBKR.",
     thesis: "Dubai RE + tourism + hub dépendent des vols et sécurité perçue. Missiles sur Gulf = expats paniquent, transactions gèlent, Emaar (14.6% du ETF) souffre.",
+    histPattern: {
+      title: "Gulf War I 1990 + Israel-Iran Juin 2025",
+      items: [
+        "1990 : Kuwait RE détruit physiquement. Dubai non impacté directement — mais pas de missiles sur le GCC à l'époque.",
+        "Juin 2025 (12 jours) : UAE ETF dip court, recovery en V en 3 semaines. Hormuz menacé mais pas fermé.",
+        "Dubai historique : Chaque crise régionale = dip temporaire 5-15%, recovery 1-3 mois. Modèle 'buy the dip' a toujours marché... jusqu'ici.",
+        "⚡ Pattern clé : Cette fois est structurellement différente. Missiles SUR le GCC + Hormuz fermé + vols suspendus = première vraie menace existentielle au modèle Dubai depuis 2008-09.",
+      ],
+      analog: "AUCUN précédent direct. Dubai n'a jamais subi de frappes. Le plus proche = crise financière 2008-09 (Emaar -80%, DFM -70%). Mais c'était économique, pas militaire.",
+    },
   },
 ];
 
@@ -216,6 +267,89 @@ const initDeesc = () => [
     { text: "Ratio Gold/Oil normalise", weight: 2, status: "pending" },
     { text: "UAE ETF rebondit sur volume", weight: 3, status: "pending" },
   ]},
+];
+
+// ─── HISTORICAL PATTERNS ───
+const HIST_CONFLICTS = [
+  {
+    name: "Guerre du Kippour", year: "1973-74", duration: "6 mois",
+    oilBefore: "$3", oilPeak: "$12", oilChange: "+300%", oilRecovery: "Jamais (nouveau plateau)",
+    goldChange: "+47%", goldNote: "Or découplé du dollar en 1971, début du bull run",
+    shippingNote: "Embargo = tanker rates explosent, rerouting massif",
+    fertNote: "Prix engrais doublent (feedstock energy cost)",
+    gulfNote: "N/A",
+    keyLesson: "Choc structurel — les prix ne reviennent jamais au pré-conflit. Changement de paradigme permanent.",
+    analogy: 2,
+  },
+  {
+    name: "Révolution Iranienne", year: "1979", duration: "12+ mois",
+    oilBefore: "$14", oilPeak: "$39", oilChange: "+179%", oilRecovery: "2-3 ans",
+    goldChange: "+134% (→$850/oz ATH)", goldNote: "Record absolu tenu 28 ans. Safe haven peak.",
+    shippingNote: "Perte 2-2.5M bbl/jour, tanker rates spike prolongé",
+    fertNote: "Engrais azotés : crise prix 18 mois",
+    gulfNote: "N/A (pré-boom Dubai)",
+    keyLesson: "Plus la disruption supply est longue, plus le spike est durable. Gold spike = front-loaded puis fade.",
+    analogy: 3,
+  },
+  {
+    name: "Guerre Iran-Iraq", year: "1980-88", duration: "8 ans",
+    oilBefore: "$39", oilPeak: "$39 (déjà élevé)", oilChange: "Volatil, -65% net", oilRecovery: "Marché baissier",
+    goldChange: "-60% sur la période", goldNote: "Conflit prolongé = gold fade, marché s'habitue",
+    shippingNote: "Tanker War 1984-88 : attaques sur 400+ navires, assurance spike",
+    fertNote: "Volatilité prolongée des inputs",
+    gulfNote: "N/A",
+    keyLesson: "Guerre longue ≠ prix hauts soutenus. Le marché price-in le conflit. La Tanker War est l'analogue le plus direct pour le Hormuz.",
+    analogy: 4,
+  },
+  {
+    name: "Guerre du Golfe I", year: "1990-91", duration: "9 mois",
+    oilBefore: "$17", oilPeak: "$46", oilChange: "+89%", oilRecovery: "6 mois post-guerre",
+    goldChange: "+8% puis retour", goldNote: "Spike court, retour au pré-guerre en 6 mois",
+    shippingNote: "Tanker rates +100%, normalisation rapide post-libération Kuwait",
+    fertNote: "Spike modéré, recovery 6 mois",
+    gulfNote: "Kuwait RE détruit, Dubai non impacté",
+    keyLesson: "Pattern classique : spike sur invasion → fade sur succès militaire → retour pré-conflit. 'Buy the cannons, sell the church bells.'",
+    analogy: 5,
+  },
+  {
+    name: "Guerre d'Iraq", year: "2003", duration: "Invasion: 6 sem",
+    oilBefore: "$28", oilPeak: "$37", oilChange: "+32%", oilRecovery: "Retour en 3 mois",
+    goldChange: "+15% puis retour", goldNote: "Rally pré-guerre, sell-off au début des frappes",
+    shippingNote: "Spike modéré, normalisation rapide",
+    fertNote: "Impact minimal",
+    gulfNote: "Dubai boom accélère post-2003",
+    keyLesson: "Victoire rapide = spike court. Pétrole et or vendent sur les premières frappes. 'Sell the fact.'",
+    analogy: 3,
+  },
+  {
+    name: "Attaque Aramco (drones)", year: "2019", duration: "2 semaines",
+    oilBefore: "$60", oilPeak: "$69", oilChange: "+15% intraday", oilRecovery: "2 semaines",
+    goldChange: "+1%", goldNote: "Réaction mineure, pas de conflit ouvert",
+    shippingNote: "Spike 1-2 jours puis normalisation",
+    fertNote: "Aucun impact",
+    gulfNote: "Impact négligeable",
+    keyLesson: "Event ponctuel sans escalation = spike très court. Le marché teste et revient vite.",
+    analogy: 1,
+  },
+  {
+    name: "Guerre Israel-Iran (12 jours)", year: "Juin 2025", duration: "12 jours",
+    oilBefore: "$65", oilPeak: "$78", oilChange: "+20%", oilRecovery: "3 semaines",
+    goldChange: "+8%", goldNote: "Rally safe-haven court, retour rapide",
+    shippingNote: "Hormuz menacé mais pas fermé. Spike modéré.",
+    fertNote: "Impact limité",
+    gulfNote: "Dubai : dip court, recovery en V",
+    keyLesson: "Précédent direct. Hormuz NON fermé → recovery rapide. Cette fois-ci Hormuz EST fermé → scénario très différent.",
+    analogy: 3,
+  },
+];
+
+const PATTERN_RULES = [
+  { rule: "Sell the cannons, buy the church bells", desc: "Les marchés spike AVANT ou AU DÉBUT du conflit, puis fadent pendant. La sortie optimale est souvent dans les premiers jours/semaines." },
+  { rule: "La durée de fermeture Hormuz détermine tout", desc: "1-2 sem = spike court (Aramco 2019). 3+ sem = dommage structurel. 6+ sem = changement de régime (Kippour 1973)." },
+  { rule: "Gold front-loads, Oil sustains", desc: "L'or spike immédiatement (safe haven) puis fade. Le pétrole maintient tant que le supply est perturbé. Sortir de l'or avant le pétrole." },
+  { rule: "Tankers = proxy leveragé de la durée", desc: "Tanker rates sont le meilleur indicateur temps réel de la sévérité. Quand les rates commencent à baisser, la crise se termine." },
+  { rule: "Les marchés s'habituent", desc: "Même Iran-Iraq 8 ans : après 6-12 mois le premium de guerre disparaît. Le marché price-in le 'new normal'." },
+  { rule: "Recovery pattern : Tankers > Oil > Fertilizers > Gold", desc: "Tankers collapsent en premier (rates spot), pétrole suit (futures), fertilisants plus lents (supply chain), or dernier (structural bid des banques centrales)." },
 ];
 
 const SOURCES = [
@@ -312,6 +446,7 @@ export default function Dashboard() {
     { id: "sectors", label: "SECTEURS" },
     { id: "scenarios", label: "SCÉNARIOS" },
     { id: "deesc", label: "SORTIE" },
+    { id: "patterns", label: "PATTERNS" },
     { id: "sources", label: "SOURCES" },
   ];
 
@@ -767,6 +902,26 @@ export default function Dashboard() {
                     <p style={{ fontSize: 13, color: "var(--text-mid)", lineHeight: 1.7 }}>{sec.exit}</p>
                   </div>
                 </div>
+
+                {/* Historical pattern inline */}
+                {sec.histPattern && (
+                  <div className="card" style={{ marginTop: 12, background: "color-mix(in srgb, var(--surface-2) 60%, var(--bg))" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                      <div className="card-label" style={{ marginBottom: 0 }}>📐 PATTERN HISTORIQUE</div>
+                      <span style={{ fontSize: 10, padding: "3px 8px", background: "color-mix(in srgb, var(--amber) 12%, transparent)", borderRadius: "var(--radius-sm)", color: "var(--amber)", fontWeight: 500 }}>{sec.histPattern.title}</span>
+                    </div>
+                    {sec.histPattern.items.map((item, i) => (
+                      <div key={i} style={{ fontSize: 12, color: item.startsWith("⚡") ? "var(--text)" : "var(--text-mid)", lineHeight: 1.7, padding: "4px 0", borderBottom: i < sec.histPattern.items.length - 1 ? "1px solid var(--border)" : "none", fontWeight: item.startsWith("⚡") ? 500 : 400 }}>
+                        {!item.startsWith("⚡") && <span style={{ color: "var(--text-dim)", fontFamily: "var(--mono)", marginRight: 8 }}>•</span>}
+                        {item}
+                      </div>
+                    ))}
+                    <div style={{ marginTop: 10, padding: "8px 12px", background: "color-mix(in srgb, var(--amber) 6%, transparent)", borderRadius: "var(--radius-sm)", borderLeft: "3px solid var(--amber)" }}>
+                      <span style={{ fontSize: 10, color: "var(--amber)", fontWeight: 600, letterSpacing: 1 }}>ANALOGIE : </span>
+                      <span style={{ fontSize: 11, color: "var(--text-mid)" }}>{sec.histPattern.analog}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -873,6 +1028,107 @@ export default function Dashboard() {
                     <span style={{ color: e.c, fontWeight: 700 }}>{e.name}</span> — {e.t}
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ─── PATTERNS ─── */}
+        {tab === "patterns" && (
+          <div className="animate-in">
+            {/* Universal Rules */}
+            <div className="card" style={{ marginBottom: 20 }}>
+              <div className="card-label" style={{ color: "var(--amber)" }}>📐 RÈGLES HISTORIQUES — CE QUE LES GUERRES PASSÉES NOUS DISENT</div>
+              {PATTERN_RULES.map((r, i) => (
+                <div key={i} style={{ padding: "10px 0", borderBottom: i < PATTERN_RULES.length - 1 ? "1px solid var(--border)" : "none" }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", marginBottom: 3 }}>
+                    <span style={{ color: "var(--amber)", fontFamily: "var(--mono)", marginRight: 8 }}>#{i + 1}</span>
+                    {r.rule}
+                  </div>
+                  <div style={{ fontSize: 12, color: "var(--text-mid)", paddingLeft: 28 }}>{r.desc}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Analogy strength chart */}
+            <div className="card" style={{ marginBottom: 20 }}>
+              <div className="card-label">DEGRÉ D'ANALOGIE AVEC LE CONFLIT ACTUEL</div>
+              <div style={{ fontSize: 11, color: "var(--text-dim)", marginBottom: 12 }}>
+                Évaluation subjective : 1 = peu comparable, 5 = très comparable. Le conflit actuel combine des éléments de plusieurs précédents.
+              </div>
+              {HIST_CONFLICTS.map((c, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                  <span style={{ fontSize: 11, color: "var(--text-mid)", width: 200, flexShrink: 0 }}>{c.name} ({c.year})</span>
+                  <div style={{ display: "flex", gap: 3, flex: 1 }}>
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <div key={j} style={{
+                        flex: 1, maxWidth: 60, height: 14, borderRadius: 2,
+                        background: j < c.analogy ? "var(--amber)" : "var(--border)",
+                        opacity: j < c.analogy ? 0.5 + (j / 5) * 0.5 : 0.3,
+                        transition: "all 0.3s",
+                      }} />
+                    ))}
+                  </div>
+                  <span style={{ fontSize: 10, color: "var(--text-dim)", fontFamily: "var(--mono)", width: 25 }}>{c.analogy}/5</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Historical conflicts detail */}
+            <div className="card-label">DÉTAIL PAR CONFLIT</div>
+            {HIST_CONFLICTS.map((c, i) => (
+              <div key={i} className="card" style={{ marginBottom: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, flexWrap: "wrap", gap: 6 }}>
+                  <div>
+                    <span style={{ fontSize: 15, fontWeight: 700, fontFamily: "var(--mono)" }}>{c.name}</span>
+                    <span style={{ fontSize: 12, color: "var(--text-dim)", marginLeft: 10 }}>{c.year} — {c.duration}</span>
+                  </div>
+                  <div style={{ display: "flex", gap: 3 }}>
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <div key={j} style={{ width: 8, height: 8, borderRadius: 2, background: j < c.analogy ? "var(--amber)" : "var(--border)" }} />
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10, marginBottom: 12 }}>
+                  <div style={{ background: "var(--bg)", padding: 10, borderRadius: "var(--radius-sm)" }}>
+                    <div style={{ fontSize: 9, color: "var(--text-dim)", letterSpacing: 1, marginBottom: 4 }}>PÉTROLE</div>
+                    <div style={{ fontSize: 16, fontWeight: 700, color: "var(--amber)", fontFamily: "var(--mono)" }}>{c.oilChange}</div>
+                    <div style={{ fontSize: 10, color: "var(--text-dim)" }}>{c.oilBefore} → {c.oilPeak}</div>
+                    <div style={{ fontSize: 10, color: "var(--text-mid)", marginTop: 2 }}>Recovery: {c.oilRecovery}</div>
+                  </div>
+                  <div style={{ background: "var(--bg)", padding: 10, borderRadius: "var(--radius-sm)" }}>
+                    <div style={{ fontSize: 9, color: "var(--text-dim)", letterSpacing: 1, marginBottom: 4 }}>OR</div>
+                    <div style={{ fontSize: 16, fontWeight: 700, color: "#eab308", fontFamily: "var(--mono)" }}>{c.goldChange}</div>
+                    <div style={{ fontSize: 10, color: "var(--text-mid)", marginTop: 2 }}>{c.goldNote}</div>
+                  </div>
+                  <div style={{ background: "var(--bg)", padding: 10, borderRadius: "var(--radius-sm)" }}>
+                    <div style={{ fontSize: 9, color: "var(--text-dim)", letterSpacing: 1, marginBottom: 4 }}>TANKERS</div>
+                    <div style={{ fontSize: 10, color: "var(--text-mid)" }}>{c.shippingNote}</div>
+                  </div>
+                  <div style={{ background: "var(--bg)", padding: 10, borderRadius: "var(--radius-sm)" }}>
+                    <div style={{ fontSize: 9, color: "var(--text-dim)", letterSpacing: 1, marginBottom: 4 }}>FERTILISANTS</div>
+                    <div style={{ fontSize: 10, color: "var(--text-mid)" }}>{c.fertNote}</div>
+                  </div>
+                </div>
+
+                <div style={{ background: "color-mix(in srgb, var(--amber) 8%, transparent)", padding: "8px 12px", borderRadius: "var(--radius-sm)", borderLeft: "3px solid var(--amber)" }}>
+                  <span style={{ fontSize: 11, color: "var(--amber)", fontWeight: 600 }}>💡 </span>
+                  <span style={{ fontSize: 12, color: "var(--text-mid)" }}>{c.keyLesson}</span>
+                </div>
+              </div>
+            ))}
+
+            {/* Current conflict positioning */}
+            <div className="card" style={{ borderTop: "2px solid var(--red)" }}>
+              <div className="card-label" style={{ color: "var(--red)" }}>🎯 POSITIONNEMENT ACTUEL VS HISTORIQUE</div>
+              <div style={{ fontSize: 12, color: "var(--text-mid)", lineHeight: 1.8 }}>
+                <p style={{ marginBottom: 8 }}>Le conflit Iran 2026 est <strong style={{ color: "var(--text)" }}>sans précédent direct</strong> — c'est le premier où le Hormuz est de facto fermé combiné avec un regime change. Les analogues les plus proches :</p>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "var(--amber)", fontWeight: 600 }}>Pétrole :</span> Pattern Golfe I (1990) — spike +89% puis recovery. Mais fermeture Hormuz = plus proche du Kippour 1973 en termes de disruption supply.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#eab308", fontWeight: 600 }}>Or :</span> Front-load pattern confirmé par tous les conflits. Pic dans les 1-2 premières semaines, puis fade SAUF si conflit dure 6+ mois.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#0ea5e9", fontWeight: 600 }}>Tankers :</span> Tanker War (1984-88) = seul vrai précédent d'attaques sur navires dans le Gulf. Mais cette fois-ci c'est simultané avec fermeture complète, pas graduel.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#22c55e", fontWeight: 600 }}>Fertilisants :</span> Combinaison unique : fermeture Hormuz + halt Qatar LNG + planting season. Pas de précédent direct.</div>
+                <div><span style={{ color: "var(--red)", fontWeight: 600 }}>Gulf/Dubai :</span> Premier conflit majeur menaçant directement les GCC hubs. Dubai n'existait pas comme centre financier lors des guerres précédentes.</div>
               </div>
             </div>
           </div>
