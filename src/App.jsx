@@ -8,10 +8,10 @@ function getDayCount() {
 // ─── ESCALATION SCORE ───
 const ESCAL_COMPONENTS = [
   { name: "Hormuz Fermeture", weight: 25, score: 10 },
-  { name: "Intensité Militaire", weight: 20, score: 9 },
-  { name: "Riposte Iran", weight: 15, score: 9 },
+  { name: "Intensité Militaire", weight: 20, score: 10 },
+  { name: "Riposte Iran", weight: 15, score: 8 },
   { name: "Escalation Régionale", weight: 15, score: 10 },
-  { name: "Diplomatie", weight: 15, score: 2 },
+  { name: "Diplomatie", weight: 15, score: 1 },
   { name: "Risque Nucléaire", weight: 10, score: 8 },
 ];
 const compositeScore = () => {
@@ -27,7 +27,8 @@ const PHASES = [
   { label: "Fermeture Hormuz", range: "2 Mar+", status: "active" },
   { label: "Front Liban", range: "2 Mar+", status: "active" },
   { label: "Expansion NATO/Turquie", range: "4 Mar+", status: "active" },
-  { label: "Attrition", range: "Sem 1-3", status: "upcoming" },
+  { label: "Expansion Azerbaïdjan", range: "5 Mar+", status: "active" },
+  { label: "Attrition", range: "Sem 1-3", status: "active" },
   { label: "Négociation", range: "Sem 2-5", status: "upcoming" },
   { label: "Cessez-le-feu", range: "Sem 4-8", status: "upcoming" },
   { label: "Réouverture", range: "Post-cessez", status: "upcoming" },
@@ -84,17 +85,19 @@ const SECTORS = [
     ],
     etfs: [{ symbol: "XLE", note: "Proxy large cap energy" }],
     kpis: [
-      { name: "Transit Hormuz", val: "~0 (fermeture IRGC confirmée J5)", sig: "bull", src: "Windward/Kpler/Wikipedia" },
+      { name: "Transit Hormuz", val: "5 crossings J6 (vs 107 avg) — effectivement fermé J7", sig: "bull", src: "Windward/Wikipedia" },
       { name: "VLCC ME-CN (TD3C)", val: "W700 / $424-481K/day ATH", sig: "bull", src: "LSEG/Sinokor/Baltic" },
       { name: "VLCC Immobilisés", val: "72 VLCCs (8% flotte mondiale)", sig: "bull", src: "Arrow Brokers" },
       { name: "Total Tankers Bloqués", val: "329 crude+product, ~150 à l'ancre hors détroit", sig: "bull", src: "Arrow/AJ/Wikipedia" },
       { name: "Tankers Endommagés", val: "5+ tankers frappés, 2 morts équipage", sig: "bull", src: "Al Jazeera" },
-      { name: "P&I Cancel", val: "EFFECTIF AUJOURD'HUI 5 mars — transit sans assurance", sig: "bull", src: "Gard/Skuld/NorthStd/London/American" },
+      { name: "P&I Cancel", val: "EFFECTIF depuis 5 mars — transit sans assurance", sig: "bull", src: "Gard/Skuld/London" },
       { name: "Freight $/bbl", val: "$20/bbl ME→CN (vs $2.50 moy 2025) = x8", sig: "bull", src: "Sinokor/Bloomberg" },
-      { name: "Explosion Kuwait", val: "Tanker ancré 30nm SE Mubarak al-Kabeer — explosion", sig: "bull", src: "Al Jazeera" },
-      { name: "Trump DFC Insurance", val: "Annoncé mais pas opérationnel. Navy 'pas de dispo'", sig: "neutral", src: "Truth Social/Lloyd's List" },
-      { name: "Aramco Reroute", val: "Tente réorienter exports vers Red Sea (pipeline E-W)", sig: "watch", src: "Reuters" },
-      { name: "LNG Tanker Rates", val: "+40%+ (Qatar halt persiste)", sig: "bull", src: "LSEG" },
+      { name: "AIS Jamming", val: "44 zones injection + 92 zones denial dans le Gulf", sig: "bull", src: "Windward" },
+      { name: "Trump DFC Insurance", val: "Annoncé, Bessent dit 'annonces à venir' — toujours pas opérationnel", sig: "neutral", src: "CNBC/Bessent" },
+      { name: "Navy Escorts", val: "Shipping industry : 'welcome step' mais need 'genuinely safe'", sig: "neutral", src: "NPR/Seanergy CEO" },
+      { name: "Bab el-Mandeb", val: "21 crossings J6 (+950% vs jour précédent) — rerouting", sig: "watch", src: "Windward" },
+      { name: "STNG", val: "$77-80 (52-wk high $81.85). Strong Buy consensus", sig: "bull", src: "TradingView/Investing" },
+      { name: "Kuwait Explosion", val: "Tanker + cargo endommagés, oil spill — zone danger s'élargit", sig: "bull", src: "Windward/AJ" },
     ],
     exhaustion: [
       "DFC insurance opérationnel + premiers tankers acceptent couverture US",
@@ -111,7 +114,7 @@ const SECTORS = [
         "1984-88 : 400+ navires attaqués dans le Golfe, assurances x3-5x, mais les tankers ont continué à naviguer. Rates élevés soutenus ~4 ans.",
         "1990 : Rates spot +100% sur invasion Kuwait, normalisation rapide (<6 mois) post-libération.",
         "2022-23 : Ukraine = tanker rates TNK +108%, INSW +98%, FRO +70% sur 12 mois (rerouting, sanctions).",
-        "⚡ JOUR 6 UPDATE : P&I cancel EFFECTIF aujourd'hui. Tanker explosion 30nm Kuwait. 5+ tankers frappés total, 2 morts. 150+ navires à l'ancre hors détroit. Ras Tanura loading terminal frappé (drone). Aramco tente rerouter via Red Sea mais Jeddah limité. RBC Capital: 'insurance-driven shutdown' — Iran n'a même pas eu besoin de blocus naval, juste de drones. Sinokor contrôle ~40% VLCC dispo = pricing power monstre.",
+        "⚡ JOUR 7 UPDATE : AIS jamming massif (44 zones injection, 92 denial). Tanker+cargo explosion Kuwait + oil spill — zone danger s'élargit au nord du Gulf. Bab el-Mandeb +950% trafic (rerouting). P&I annulé depuis J5. Bessent dit 'annonces à venir' sur DFC mais toujours rien de concret. Shipping CEOs : 'pas suffisant tant que pas genuinely safe'. Iran strikes Bahrain (raffinerie touchée). Le shipping industry NE REVIENT PAS tant que le conflit dure.",
       ],
       analog: "Tanker War 1987 (Operation Earnest Will — escortes US) MAIS cette fois: W700 vs W225 en 1987, assurances annulées (pas juste majorées), zéro transit vs transit réduit. Aucun comparable historique pour les rates actuels.",
     },
@@ -125,18 +128,19 @@ const SECTORS = [
     ],
     etfs: [{ symbol: "XEG.TO", note: "iShares TSX Energy" }, { symbol: "ZEO.TO", note: "BMO Equal Weight O&G" }],
     kpis: [
-      { name: "Brent", val: "$82-84 (range $80-84, session 5 mars)", sig: "bull", src: "Investing/Commodity.com" },
-      { name: "WTI", val: "$76.22 (+3.65% vs veille)", sig: "bull", src: "Commodity.com" },
-      { name: "Brent 7-day", val: "+16% ($70.93→$82+)", sig: "bull", src: "Commodity.com" },
+      { name: "Brent Spot", val: "$89.21 (+22.4% vs semaine passée)", sig: "bull", src: "Commodity.com" },
+      { name: "Brent Futures", val: "$84.48 (range $83-86, 52-wk high $86.28)", sig: "bull", src: "Yahoo/Investing" },
+      { name: "WTI", val: "$79.88-85.91 (near 52-wk high)", sig: "bull", src: "Commodity.com/CME" },
+      { name: "Brent 7-day", val: "+22%+ ($72→$89 spot)", sig: "bull", src: "Commodity.com" },
       { name: "Goldman Q2", val: "$76 avg (+$10). '$100 si Hormuz 5 sem'", sig: "bull", src: "Goldman/Reuters" },
       { name: "UBS 2026", val: "$72 avg (+$10). '>$90 si infra frappée'", sig: "bull", src: "UBS/Reuters" },
       { name: "Iraq Cuts Forcés", val: "-1.5Mbpd (stockage saturé, expansion possible -3Mbpd)", sig: "bull", src: "Reuters/SED" },
-      { name: "Bessent", val: "15% global tariff cette semaine + mesures fuel à venir", sig: "watch", src: "CNBC/Treasury" },
+      { name: "Oxford Economics", val: "'Sell extreme moves, will fade. Conflit max 2 mois'", sig: "watch", src: "Oxford/Alpine Macro" },
       { name: "XLE Retail Inflow", val: "$49M lundi — record all-time", sig: "bull", src: "VandaTrack" },
       { name: "TMX Pipeline", val: "Stable — avantage CDN (Brent Pacific pricing)", sig: "bull", src: "Trans Mountain" },
-      { name: "Gasoline US", val: "$3.11+ gal, prévision +20-55¢ prochaines 2 sem", sig: "bull", src: "AAA/GasBuddy" },
-      { name: "RBC Capital", val: "'Plus grosse crise énergie depuis embargo 1970s'", sig: "bull", src: "NPR/RBC" },
+      { name: "Gasoline US", val: "$3.19+ gal (+22¢ vs semaine passée)", sig: "bull", src: "AAA" },
       { name: "Ras Tanura (Aramco)", val: "Drone iranien sur terminal chargement — MoD Saoudi", sig: "bull", src: "Investing.com/Reuters" },
+      { name: "CDN = Best Positioned", val: "OilPrice: 'most reliable oil supplier' — TMX non-Hormuz", sig: "bull", src: "OilPrice.com" },
     ],
     exhaustion: [
       "Trump tweet baisser gas / SPR release (Rubio dit 'pas encore')",
@@ -152,7 +156,7 @@ const SECTORS = [
         "1990 : Brent $17→$46 (+170%) en 10 semaines. Retour à $20 dès Desert Storm (jan 1991).",
         "1979 : Brent $14→$39 (+179%). Recovery 2-3 ans. Mais contexte différent (pas de US shale, pas de SPR).",
         "2003 Irak : Brent $28→$37 (+32%), retour en 3 mois. Victoire rapide = spike court.",
-        "⚡ JOUR 6 (5 mars) : Brent $82-84 stable. Hegseth 'accelerating'. Sénat rejette résolution limiter guerre. Ras Tanura loading terminal frappé (drone iranien). Aramco tente rerouter via Red Sea. 6 US soldiers tués Kuwait. Tarifs 15% Bessent cette semaine. RBC: 'plus grosse crise énergie depuis 1970s'. Gasoline $3.11+, diesel $3.86.",
+        "⚡ JOUR 7 (6 mars) : Brent spot $89 (+22% 1 sem). Hegseth 'just getting started'. Israel 'next phase' — 2,500 frappes, 6,000+ armes. Bahrain frappé (hôtel, résidentiel, raffinerie). Azerbaijan frappé pour 1re fois. Gasoline $3.19+. Oxford Economics : 'max 2 mois, sell extreme moves'. MAIS Iran dit 'ready for invasion'. Aucun signe de dé-escalation.",
       ],
       analog: "Gulf War I pour la durée (Trump dit 4-5 sem). Mais supply buffers modernes (SPR, shale) limitent vs 1973/1979.",
     },
@@ -166,17 +170,17 @@ const SECTORS = [
     ],
     etfs: [{ symbol: "GLD", note: "SPDR Gold Trust" }, { symbol: "GDX", note: "Gold Miners" }, { symbol: "GDXJ", note: "Junior Miners" }],
     kpis: [
-      { name: "Or Spot", val: "$5,172 (+0.7% jeudi, rebond)", sig: "bull", src: "Investing.com" },
-      { name: "Or Range J6", val: "$5,130-$5,204", sig: "mixed", src: "Investing.com" },
-      { name: "Or Lundi High", val: "$5,400 (+2% — lundi)", sig: "bull", src: "CNN/Yahoo" },
-      { name: "Or Selloff J3-4", val: "-5% mardi, -3.6% mercredi (profit-taking classique)", sig: "watch", src: "CNBC" },
-      { name: "Gold Miners", val: "-7% à -17% mar-mer (NEM, HBM, CDE, AAUK). NEM insider sell", sig: "watch", src: "CNBC/Investing" },
-      { name: "DXY", val: "~99 (3.25-month high, léger recul du pic)", sig: "mixed", src: "Investing.com" },
-      { name: "Real Rates", val: "10Y élevé, inflation expectations stables vs 2022", sig: "mixed", src: "FRED/Cboe" },
-      { name: "Fed", val: "Hold 'quite some time' — cuts sept 2026+", sig: "mixed", src: "Hammack/Kashkari" },
-      { name: "Argent (Ag)", val: "$84.34 (+1.4% rebond)", sig: "bull", src: "Investing.com" },
+      { name: "Or Spot", val: "$5,079-5,102 (correction continue du ATH)", sig: "mixed", src: "LiteFinance/LongForecast" },
+      { name: "Or Range J7", val: "$5,074-$5,151", sig: "mixed", src: "LongForecast" },
+      { name: "Or ATH Semaine", val: "$5,400 (lundi 2 mars, +2%)", sig: "bull", src: "CNN/Yahoo" },
+      { name: "Or Selloff J3-7", val: "De $5,400 → $5,079 (-6%). DXY fort + profit-taking", sig: "watch", src: "Multiple" },
+      { name: "Dubai Air Cargo", val: "HALT — 20% global gold flows bloqués (2e exportateur)", sig: "bull", src: "FT/USAGOLD" },
+      { name: "Physical Premium", val: "India flip discount→parity en 48h. Asian premiums up", sig: "bull", src: "USAGOLD/WGC" },
+      { name: "DXY", val: "~99 (force = headwind for gold)", sig: "mixed", src: "Yahoo Finance" },
+      { name: "Silver (Ag)", val: "$82-93 (volatile, $93.41 ATH lundi)", sig: "mixed", src: "Investing.com" },
       { name: "HSBC Target", val: "$6,500/oz fin 2026", sig: "bull", src: "HSBC/CNBC" },
-      { name: "Signal technique", val: "Cassure au-dessus Fib 50% à $5,165 — target $5,400+", sig: "bull", src: "Investing.com" },
+      { name: "Gold-Silver Ratio", val: "61.8:1", sig: "neutral", src: "USAGOLD" },
+      { name: "Fed", val: "Hold 'quite some time' — 95.6% prob no cut mars", sig: "mixed", src: "CME FedWatch" },
     ],
     exhaustion: [
       "Or échoue à casser ATH Jan ($5,589) sur fort volume",
@@ -192,7 +196,7 @@ const SECTORS = [
         "1973 : Or +47% — début d'un bull séculaire après Nixon décroche le dollar de l'or (1971).",
         "1979 : Or +134% → $850/oz ATH (tenu 28 ans). Chute -60% quand Volcker monte les taux.",
         "1990 : Or +8-15% sur 2 mois, retour au pré-guerre en 6 mois.",
-        "⚡ JOUR 6 : Or rebond à $5,172 (+0.7% jeudi) après selloff J3-4. Cassure technique Fib 50% à $5,165. Argent aussi rebond $84. DXY léger recul du pic. Pattern confirme : profit-taking J3-5 = classique, rebond J6+. Thèse intacte. Conflit s'accélère (Hegseth), pas de dé-escalation en vue.",
+        "⚡ JOUR 7 : Or $5,079-5,102, correction continue (-6% du ATH $5,400). MAIS : Dubai air cargo HALT = 20% global gold supply chain bloquée. Premiums physiques Inde passent de discount → parité en 48h. Le marché physique se serre pendant que le papier corrige. DXY fort reste headwind. Conflit s'intensifie = thèse structurelle intacte. Watch: $5,000 comme support psychologique.",
       ],
       analog: "Bull structurel type 1979. Mais le marché est DÉJÀ en bull. Risk = Fed keeps rates high pour combattre l'inflation énergie.",
     },
@@ -205,13 +209,18 @@ const SECTORS = [
     ],
     etfs: [{ symbol: "SOIL", note: "Global X Fertilizers" }],
     kpis: [
-      { name: "Potash Spot (MOP)", val: "Rising — supply chain stress", sig: "bull", src: "CRU/Argus" },
+      { name: "Urea NOLA", val: "$520-550/t (vs $475 pré-conflit, +10-16%)", sig: "bull", src: "CRU/DTN" },
+      { name: "Phosphate", val: "+$30/t depuis début conflit. 'More increases coming'", sig: "bull", src: "AgWeb/DTN" },
+      { name: "Potash", val: "Seul fert pas encore impacté. MAIS Israel+Jordan = risk", sig: "neutral", src: "AgWeb/DTN" },
+      { name: "Urea Egypt", val: "+$60/t (acheteurs cherchent alternatives N.Africa/SE Asia)", sig: "bull", src: "Bloomberg Green" },
       { name: "EU Natgas", val: "+70%+ soutenu cette semaine", sig: "bull", src: "ICE/Yahoo" },
-      { name: "Qatar LNG", val: "Production TOUJOURS SUSPENDUE (J6)", sig: "bull", src: "Kpler/AJ" },
-      { name: "Qatar", val: "Évacue résidents, focus défensif — pas de redémarrage LNG imminent", sig: "bull", src: "Qatar MoI/AJ" },
-      { name: "Planting Season", val: "Mar-Mai — timing critique", sig: "bull", src: "USDA" },
-      { name: "EU Chimie", val: "Besoin hausser prix +5% sur 12 mois (coûts énergie) — Investing.com", sig: "bull", src: "Investing.com" },
-      { name: "Russia/Belarus", val: "Contraint (sanctions toujours actives)", sig: "bull", src: "IFA" },
+      { name: "Qatar LNG", val: "Production TOUJOURS SUSPENDUE — world's largest export facility", sig: "bull", src: "Kpler/AJ" },
+      { name: "DOJ Probe", val: "Enquête antitrust sur CF, Koch, Mosaic, Nutrien, Yara", sig: "watch", src: "Bloomberg/DTN" },
+      { name: "Supply Chain", val: "'30 jours Persian Gulf → US shores, +3-4 sem vers Corn Belt'", sig: "bull", src: "AgWeb/Linville" },
+      { name: "Planting Season", val: "ACTIVE — timing pire possible pour agriculture", sig: "bull", src: "USDA" },
+      { name: "Corn-to-Fert Ratio", val: "2e ou 3e pire de l'histoire pour cette période", sig: "bull", src: "AgWeb/Linville" },
+      { name: "Potash Canada", val: "30% production mondiale SK — non-Hormuz, mais demand risk", sig: "mixed", src: "Globe & Mail" },
+      { name: "Acreage Shift", val: "Risk corn → soja si azote n'arrive pas au Corn Belt", sig: "watch", src: "AgWeb" },
     ],
     exhaustion: [
       "Hormuz rouvre → routes fertilisants normalisent",
@@ -227,7 +236,7 @@ const SECTORS = [
         "1973 : Prix engrais doublent — l'énergie est 60-80% du coût de production des engrais azotés.",
         "2022 Ukraine : NTR +35%, MOS +80%, CF +100%. Spike soutenu 6+ mois.",
         "Recovery lente : supply chains fertilisants prennent 6-12 mois à normaliser.",
-        "⚡ JOUR 6 : Qatar LNG toujours down (J6), évacuation résidents Doha. EU chimie +5% prix nécessaire sur 12 mois (coûts énergie). Planting season US active. Hegseth 'accelerating' = pas de fin rapide. Si Hormuz fermé 5+ sem → crise engrais mondiale pire que 2022.",
+        "⚡ JOUR 7 : Urea NOLA $520-550/t (+10-16%). Phosphate +$30/t. Egypt urea +$60/t. 25% du marché mondial azote transite Hormuz. Qatar LNG toujours down — feedstock ammoniac impacté. DOJ ouvre enquête antitrust sur 5 majors (CF, Koch, Mosaic, Nutrien, Yara). Potash CDN pas encore impacté mais demand destruction possible si farmers switch corn→soja. Globe & Mail: 'million-dollar question is how long soil holds up'.",
       ],
       analog: "Ukraine 2022 + Kippour. Qatar LNG halt = nouveau facteur sans précédent direct.",
     },
@@ -242,14 +251,14 @@ const SECTORS = [
     kpis: [
       { name: "UAE ETF Price", val: "$20.31 (range 20.18-20.53)", sig: "bear_target", src: "Investing.com" },
       { name: "UAE 52w Range", val: "$15.40-$22.29", sig: "bear_target", src: "Investing.com" },
-      { name: "Consulat US Dubai", val: "EXPLOSIONS (drone) 4 mars", sig: "bear_target", src: "CNN/Al Jazeera" },
-      { name: "Ambassade US Riyadh", val: "Drone iranien — Saoudi confirme et condamne", sig: "bear_target", src: "MoFA Saoudi" },
-      { name: "Qatar Doha", val: "Évacuation résidents près ambassade US (mesure précaution)", sig: "bear_target", src: "Qatar MoI/AJ" },
-      { name: "6 US Service Members", val: "Tués par drone à un port au Kuwait", sig: "bear_target", src: "NBC/CBS" },
-      { name: "Iran Death Toll", val: "1,230+ morts, 6,000+ blessés (J6)", sig: "bear_target", src: "IRNA/AJ" },
-      { name: "State Dept", val: "'DEPART NOW' — Rubio: leave immediately", sig: "bear_target", src: "State/CBS" },
-      { name: "Airlines", val: "UAL -6%, AAL -5%, AF -9.4%, LH -5.2%", sig: "bear_target", src: "CNBC/CNN" },
-      { name: "Chypre", val: "Personnel US non-essentiel évacué de Chypre", sig: "bear_target", src: "Wikipedia/State" },
+      { name: "Bahrain Strikes J7", val: "Hôtel, 2 résidentiels, raffinerie — premiers strikes Bahrain", sig: "bear_target", src: "CNN" },
+      { name: "Azerbaijan Strikes", val: "Iran frappe Azerbaijan — 1er pays nouveau touché J6+", sig: "bear_target", src: "CNN" },
+      { name: "Israel 'Next Phase'", val: "IDF chief: 2,500 frappes, 6,000+ armes. 'Push deeper into Lebanon'", sig: "bear_target", src: "CNN" },
+      { name: "Beirut Évacuation", val: "500,000+ personnes fuient Dahiyeh — panique de masse", sig: "bear_target", src: "CNN" },
+      { name: "Iran Death Toll", val: "1,200+ morts (HRANA/AJ). Internet blackout persiste", sig: "bear_target", src: "CNN/AJ" },
+      { name: "State Dept", val: "'DEPART NOW' — Rubio: leave immediately. 12+ pays", sig: "bear_target", src: "State/CBS" },
+      { name: "Airlines", val: "Espace aérien Iran/Iraq/partie du Gulf fermé", sig: "bear_target", src: "CNN/AJ" },
+      { name: "Goldman Sachs CEO", val: "'Surprisingly benign market reaction' — 'needs weeks to digest'", sig: "watch", src: "CNBC/AFR Summit" },
     ],
     exhaustion: [
       "Vols commerciaux reprennent à Dubai/Abu Dhabi",
@@ -266,7 +275,7 @@ const SECTORS = [
         "1990 : Kuwait RE détruit physiquement. Dubai non impacté — pas de missiles sur le GCC.",
         "Juin 2025 (12 jours) : UAE ETF dip court, recovery V en 3 semaines. Hormuz menacé mais pas fermé.",
         "Dubai historique : Chaque crise = dip temporaire 5-15%, recovery 1-3 mois. Modèle 'buy the dip' a toujours marché... jusqu'ici.",
-        "⚡ JOUR 6 : Drone sur Ras Tanura loading terminal (Saoudi confirme). Ambassade US Riyadh frappée (drone). Qatar évacue résidents Doha. 6 US soldiers tués Kuwait. Chypre : US personnel évacué. France autorise bases US. Conflit s'étend géographiquement — thèse Gulf short se renforce.",
+        "⚡ JOUR 7 : Bahrain frappé pour la 1re fois (hôtel, 2 résidentiels, raffinerie). Azerbaijan frappé. Conflit atteint des pays GCC NON-belligérants. Beirut : 500K+ fuient Dahiyeh. Israel 'next phase' avec 6,000+ armes. Goldman CEO Solomon dit marché 'surprisingly benign' — 'needs weeks to digest'. La thèse Gulf short s'intensifie à chaque pays GCC touché.",
       ],
       analog: "AUCUN précédent direct. Plus comparable à la crise 2008-09 (Emaar -80%) mais avec une composante MILITAIRE en plus.",
     },
@@ -405,20 +414,22 @@ const STATUSES = ["inactive", "rumored", "developing", "pending", "confirmed"];
 const initDeesc = () => [
   { cat: "Diplomatique", signals: [
     { text: "Mojtaba Khamenei (fils) candidat Supreme Leader — continuité IRGC, pas réforme", weight: 3, status: "developing" },
-    { text: "Trump engage avec nouveau leadership iranien (Hegseth: 'accelerating')", weight: 4, status: "inactive" },
-    { text: "Médiation Oman/Qatar (Qatar évacue résidents, focus défensif)", weight: 3, status: "inactive" },
+    { text: "Trump engage avec nouveau leadership iranien (Hegseth: 'just getting started')", weight: 4, status: "inactive" },
+    { text: "Médiation Oman/Qatar — Qatar frappé, focus défensif", weight: 3, status: "inactive" },
     { text: "Sénat US résolution limiter Trump — REJETÉE par républicains", weight: 2, status: "confirmed" },
-    { text: "Carney (Canada) : 'ne peut exclure participation' — coalition s'élargit", weight: 2, status: "developing" },
-    { text: "France autorise bases US (BFMTV) — escalation coalition", weight: 2, status: "confirmed" },
+    { text: "Carney (Canada) : 'ne peut exclure participation'. Coalition s'élargit", weight: 2, status: "developing" },
+    { text: "France autorise bases US. NATO AWACS en Turquie", weight: 2, status: "confirmed" },
+    { text: "Iran dit prêt pour invasion — aucun signal de capitulation", weight: 5, status: "confirmed" },
   ]},
   { cat: "Militaire", signals: [
     { text: "Marine iranienne 'destroyed' (Trump) — IRIS Dena coulée (87 morts Sri Lanka)", weight: 4, status: "confirmed" },
-    { text: "Iran 1,230+ morts, 6,000+ blessés. 33 sites civils frappés", weight: 4, status: "confirmed" },
-    { text: "Hegseth: 'accelerating not decelerating', 'going deeper'", weight: 5, status: "confirmed" },
-    { text: "Kurdes iraniens offensive terrestre NW Iran. Kurdes irakiens en standby", weight: 3, status: "confirmed" },
+    { text: "Iran 1,200+ morts. Israel 2,500 frappes, 6,000+ armes. IDF 'next phase'", weight: 5, status: "confirmed" },
+    { text: "Hegseth: 'just getting started', 'new capabilities' déployées J7", weight: 5, status: "confirmed" },
+    { text: "Bahrain frappé (hôtel, résidentiels, raffinerie) + Azerbaijan touché", weight: 4, status: "confirmed" },
     { text: "6 US service members tués au Kuwait (drone) — premières pertes US", weight: 3, status: "confirmed" },
-    { text: "Hezbollah front Liban actif — 7 enfants tués en 24h (5 mars)", weight: 3, status: "confirmed" },
-    { text: "Funérailles Khamenei 3 jours — fenêtre de pause possible?", weight: 2, status: "pending" },
+    { text: "Israel évacuation massive Beirut Dahiyeh (500K+), front Liban 'next phase'", weight: 4, status: "confirmed" },
+    { text: "Iran 'ready for invasion' — AUCUN signe capitulation leadership", weight: 5, status: "confirmed" },
+    { text: "Iran strikes diminuent en volume MAIS menace reste élevée", weight: 3, status: "developing" },
   ]},
   { cat: "Maritime", signals: [
     { text: "P&I cancel EFFECTIF aujourd'hui 5 mars — transit sans assurance", weight: 5, status: "confirmed" },
@@ -522,8 +533,9 @@ const PATTERN_RULES = [
   { rule: "Les marchés s'habituent", desc: "Même Iran-Iraq 8 ans : après 6-12 mois le premium de guerre disparaît. Le marché price-in le 'new normal'." },
   { rule: "Recovery pattern : Tankers > Oil > Fertilizers > Gold", desc: "Tankers collapsent en premier (rates spot), pétrole suit (futures), fertilisants plus lents (supply chain), or dernier (structural bid des banques centrales)." },
   { rule: "⚡ NOUVEAU : Assurance kill = blocus sans blocus", desc: "L'annulation P&I par les assureurs fait le travail du blocus sans qu'Iran ait besoin de contrôler physiquement le détroit. C'est un nouveau mécanisme sans précédent historique." },
-  { rule: "⚡ NOUVEAU J5 : DFC = promise vs reality", desc: "Trump annonce DFC insurance + escortes MAIS Navy dit pas de dispo. Le marché veut des actes, pas des tweets. Tant que P&I privés restent out, DFC seul ne suffit pas. Watch: premier tanker sous couverture DFC = signal." },
-  { rule: "⚡ NOUVEAU J5 : Gold selloff J3-5 = classique", desc: "Profit-taking or J3-5 de chaque conflit majeur (Kippour, Gulf I, Ukraine). DXY fort amplifie. MAIS thèse structurelle intacte si conflit dure >2 sem. Ne pas confondre correction tactique avec renversement." },
+  { rule: "⚡ NOUVEAU J7 : Conflit s'élargit géographiquement = escalation", desc: "Bahrain, Azerbaijan frappés pour la 1re fois J6-7. Chaque pays GCC touché = modèle Dubai + fragilisé. Iran dit 'ready for invasion'. Hegseth 'just getting started'. Aucun signal de dé-escalation. Watch: premier contact diplomatique direct US-Iran = signal de sortie." },
+  { rule: "⚡ NOUVEAU J7 : Gold physical vs paper divergence", desc: "Or papier corrige (-6% du ATH) MAIS Dubai air cargo halt = 20% flux physiques bloqués. Premiums physiques Inde flip de discount à parité en 48h. Le marché physique se serre pendant que le papier vend. Pattern = opportunité si conflit dure." },
+  { rule: "⚡ NOUVEAU J7 : Fertilisants = bombe à retardement", desc: "Urea +10-16%, phosphate +$30/t, 25% azote mondial via Hormuz. Supply chain 30 jours Gulf→US + 3-4 sem vers Corn Belt. Si conflit dure 5+ sem → supply n'arrive pas pour planting season. Potash CDN (NTR) = pas encore impacté directement mais demand shift corn→soja = risk." },
   { rule: "⚡ NOUVEAU : Diesel crack > gasoline crack", desc: "Hormuz exporte LPG/naphta/diesel, PAS gasoline. La fermeture frappe les cracks distillats. Ras Tanura (Aramco) fermée = diesel mondial en crise. Raffineurs US achètent WTI $75, vendent diesel à prix de panique. Crack spread = upside NON-LINÉAIRE vs upstream (linéaire). MPC > VLO (P/E 15x vs 27x, MPLX floor, capture 114%)." },
 ];
 
@@ -563,6 +575,20 @@ const ROUTINE = [
 
 // ─── FLASH NEWS ───
 const FLASH_NEWS = [
+  { time: "6 Mar", text: "🔴 JOUR 7 : Hegseth 'just getting started'. Israel IDF chief : 'next phase', 2,500 frappes avec 6,000+ armes", cat: "mil" },
+  { time: "6 Mar", text: "🔴 Bahrain frappé : hôtel, 2 bâtiments résidentiels, raffinerie. Qatar/Kuwait/Saoudi interceptent missiles", cat: "escal" },
+  { time: "6 Mar", text: "🔴 Azerbaijan frappé par l'Iran — 1er pays nouveau touché depuis début conflit", cat: "escal" },
+  { time: "6 Mar", text: "Israel 'broad-scale wave of strikes' sur infrastructure régime Tehran (J7 matin)", cat: "mil" },
+  { time: "6 Mar", text: "Beirut : évacuation massive Dahiyeh (500K+ personnes), Israel 'push deeper into Lebanon'", cat: "escal" },
+  { time: "6 Mar", text: "Iran strikes diminuent en volume MAIS Hegseth avertit que US 'accelerate'. NATO allies 'reluctantly pulled in'", cat: "mil" },
+  { time: "6 Mar", text: "Brent spot $89.21 (+22% 1 semaine). Futures $84.48. Brent/WTI spread s'élargit", cat: "market" },
+  { time: "6 Mar", text: "Or $5,079-5,102 (correction -6% du ATH $5,400). Dubai gold air cargo HALT = 20% flux mondiaux bloqués", cat: "market" },
+  { time: "6 Mar", text: "Hormuz : 5 crossings J6, AIS jamming 44 zones injection + 92 denial. P&I cancel J2. Trafic ~0", cat: "hormuz" },
+  { time: "6 Mar", text: "Urea NOLA $520-550/t (+10-16%). Phosphate +$30/t. Potash = seul fert pas encore impacté", cat: "market" },
+  { time: "6 Mar", text: "Goldman CEO Solomon: marché 'surprisingly benign' — 'needs weeks to digest implications'", cat: "market" },
+  { time: "6 Mar", text: "Oxford Economics/Alpine Macro : 'conflit max 2 mois. Sell extreme moves — they will fade'", cat: "market" },
+  { time: "6 Mar", text: "S&P 500 -0.56%, Dow -1.76% (jeudi). VIX +12% à 23.75. Marché s'ajuste", cat: "market" },
+  { time: "6 Mar", text: "DOJ ouvre enquête antitrust sur fertilisants (CF, Koch, Mosaic, Nutrien, Yara)", cat: "market" },
   { time: "5 Mar", text: "🏭 NOUVEAU SECTEUR : Raffineurs US ajouté au dashboard. Diesel crack ATH 2023. MPC = pick #1 (P/E 15x, capture 114%, MPLX floor)", cat: "market" },
   { time: "5 Mar", text: "P&I cancel effective AUJOURD'HUI — transit Hormuz désormais sans assurance commerciale", cat: "hormuz" },
   { time: "5 Mar", text: "Hegseth : US 'accelerating, not decelerating'. Frappes vont aller 'deeper' en Iran", cat: "mil" },
@@ -1383,17 +1409,17 @@ export default function Dashboard() {
             ))}
 
             <div className="card" style={{ borderTop: "2px solid var(--red)" }}>
-              <div className="card-label" style={{ color: "var(--red)" }}>🎯 POSITIONNEMENT ACTUEL VS HISTORIQUE — JOUR 5+ UPDATE (5 MARS)</div>
+              <div className="card-label" style={{ color: "var(--red)" }}>🎯 POSITIONNEMENT ACTUEL VS HISTORIQUE — JOUR 7 UPDATE (6 MARS)</div>
               <div style={{ fontSize: 12, color: "var(--text-mid)", lineHeight: 1.8 }}>
-                <p style={{ marginBottom: 8 }}>Le conflit Iran 2026 est <strong style={{ color: "var(--text)" }}>sans précédent direct</strong> — VLCC rates ATH (W700), regime change en cours, multi-fronts actifs (Liban, Iraq, NATO/Turquie intercepte). Hegseth dit 'early days'. P&I cancel effective AUJOURD'HUI.</p>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "var(--amber)", fontWeight: 600 }}>Pétrole :</span> Brent touche $85 ATH 52-wk puis repli à $80.45. Goldman/UBS +$10 forecasts. Iraq -1.5Mbpd forced cuts (stockage saturé). Gas US $3.11 (+$0.11/jour). XLE retail inflow record $49M.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#8b5cf6", fontWeight: 600 }}>🏭 Raffineurs US (NOUVEAU) :</span> Diesel crack EU +34% (2-yr high). Diesel US +10% (oct 2023 high). Ras Tanura fermée. 4.3Mbpd produits raffinés bloqués. MPC = pick #1 : P/E 15x, capture 114%, MPLX floor, plus gros producteur jet fuel US. Le 2e dérivé non-linéaire de la même crise.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#06b6d4", fontWeight: 600 }}>🏗️ Aluminium NA (THÈSE) :</span> Alba force majeure. Qatalum shutdown. LME $3,418 (4-yr high). GCC = 9% production mondiale bloquée. CENX/AA/RIO Saguenay = isolés du conflit, hydro-powered. Midwest premium ATH $2,182. Supply shift durable (smelters 6-12 mois à redémarrer).</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#ec4899", fontWeight: 600 }}>🧪 Chimie NA (THÈSE) :</span> Qatar petrochim down. EU chimie +5% prix (énergie). DOW/LYB feedstock = shale gas NA, PAS naphtha importé. Même mécanisme que raffineurs = supply shift ME/EU → NA. Plus lent mais structurel.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#eab308", fontWeight: 600 }}>Or :</span> ⚠️ SELLOFF -5% mardi, -3.6% mercredi à $5,121. DXY fort, Fed hawkish. Miners crash -7 à -17%. MAIS : profit-taking classique J3-5 de conflit. HSBC maintient $6,500 target. Thèse structurelle intacte si conflit dure.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#0ea5e9", fontWeight: 600 }}>Tankers :</span> VLCC W700 ATH ($436-481K/day). $20/bbl freight vs $2.50 moy 2025. 329 tankers bloqués, 72 VLCCs. Trump DFC+escorts annoncé MAIS Navy dit 'pas de dispo'. Sinokor contrôle ~40% VLCC dispo = pricing power. P&I cancel effective AUJOURD'HUI.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#22c55e", fontWeight: 600 }}>Fertilisants :</span> EU natgas +70%+ soutenu. Qatar LNG toujours down. Iraq storage plein = effet cascade pétrochimie. Planting season US mars-mai.</div>
-                <div><span style={{ color: "var(--red)", fontWeight: 600 }}>Gulf/Dubai :</span> Consulat US Dubai explosé. Ambassades 3 pays fermées. State Dept: 'DEPART NOW' 12+ pays. Airlines crush (AF -9.4%). Tanker frappé 10nm Fujairah. Pas de bottom tant que frappes continuent.</div>
+                <p style={{ marginBottom: 8 }}>Le conflit Iran 2026 est <strong style={{ color: "var(--text)" }}>sans précédent direct</strong> — VLCC rates ATH (W700), regime change en cours, multi-fronts actifs (Liban, Iraq, Bahrain, Azerbaijan, NATO/Turquie). Hegseth 'just getting started'. Israel 'next phase'. Aucun signal de dé-escalation.</p>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "var(--amber)", fontWeight: 600 }}>Pétrole :</span> Brent spot $89 (+22% 1 sem). Goldman/UBS +$10 forecasts. Iraq -1.5Mbpd forced cuts. Gas US $3.19 (+22¢/sem). Oxford Econ : 'max 2 mois, sell extreme moves'. OilPrice : Canada = 'most reliable supplier' grâce TMX.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#8b5cf6", fontWeight: 600 }}>🏭 Raffineurs US :</span> Diesel crack EU +34% (2-yr high). Ras Tanura fermée. 4.3Mbpd produits raffinés bloqués. MPC = pick #1. Crack spread = upside non-linéaire.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#06b6d4", fontWeight: 600 }}>🏗️ Aluminium NA :</span> Alba force majeure. Qatalum shutdown. LME $3,418 (4-yr high). Citi/Goldman target $3,600. Smelters GCC = 6-12 mois redémarrage.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#ec4899", fontWeight: 600 }}>🧪 Chimie NA :</span> Qatar petrochim down. EU chimie +5% prix. DOW/LYB feedstock = shale gas NA. Supply shift structurel.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#eab308", fontWeight: 600 }}>Or :</span> Correction -6% du ATH ($5,400 → $5,080). DXY fort. MAIS : Dubai air cargo halt = 20% flux physiques bloqués. Premiums physiques Inde flip. Physical market tightens pendant paper vend. Pattern classique — thèse intacte si conflit dure.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#0ea5e9", fontWeight: 600 }}>Tankers :</span> VLCC W700 ATH. $20/bbl freight. 329 bloqués. P&I cancel J2. AIS jamming massif. Bessent 'annonces à venir' mais DFC toujours pas opérationnel. Shipping CEOs : 'not enough until genuinely safe'.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#22c55e", fontWeight: 600 }}>Fertilisants :</span> Urea +10-16%, phosphate +$30/t. 25% azote mondial via Hormuz. Qatar LNG toujours down. DOJ probe antitrust. 30j supply chain = bombe à retardement.</div>
+                <div><span style={{ color: "var(--red)", fontWeight: 600 }}>Gulf/Dubai :</span> Bahrain frappé (1re fois). Azerbaijan frappé. 500K+ fuient Beirut. Goldman CEO : 'needs weeks to digest'. Le modèle GCC est sous attaque physique — aucun précédent.</div>
               </div>
             </div>
           </div>
@@ -1431,7 +1457,7 @@ export default function Dashboard() {
       </main>
 
       <footer style={{ padding: "10px 28px", borderTop: "1px solid var(--border)", fontSize: 9, color: "var(--border)", textAlign: "center" }}>
-        Données manuelles — Jour 5+ — {new Date().toLocaleDateString("fr-CA")} — Dernière MàJ: mercredi 5 mars 2026 (ajout secteur Raffineurs US)
+        Données manuelles — Jour 7 — {new Date().toLocaleDateString("fr-CA")} — Dernière MàJ: vendredi 6 mars 2026 (données J7 — Bahrain/Azerbaijan strikes, Brent $89, Or $5,080, fertilisants +10-16%)
       </footer>
     </div>
   );
