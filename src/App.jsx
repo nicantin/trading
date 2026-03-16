@@ -8,11 +8,11 @@ function getDayCount() {
 // ─── ESCALATION SCORE ───
 const ESCAL_COMPONENTS = [
   { name: "Hormuz Fermeture", weight: 25, score: 10 },
-  { name: "Intensité Militaire", weight: 20, score: 10 },
+  { name: "Intensité Militaire", weight: 20, score: 9 },
   { name: "Riposte Iran", weight: 15, score: 8 },
-  { name: "Escalation Régionale", weight: 15, score: 10 },
-  { name: "Diplomatie", weight: 15, score: 1 },
-  { name: "Risque Nucléaire", weight: 10, score: 8 },
+  { name: "Escalation Régionale", weight: 15, score: 9 },
+  { name: "Diplomatie", weight: 15, score: 3 },
+  { name: "Risque Nucléaire", weight: 10, score: 7 },
 ];
 const compositeScore = () => {
   const tw = ESCAL_COMPONENTS.reduce((a, c) => a + c.weight, 0);
@@ -23,49 +23,52 @@ const compositeScore = () => {
 const PHASES = [
   { label: "Buildup", range: "Jan-Fév", status: "completed" },
   { label: "Frappes Initiales", range: "28 Fév", status: "completed" },
-  { label: "Riposte Iran", range: "1-4 Mar", status: "active" },
+  { label: "Riposte Iran", range: "1-4 Mar", status: "completed" },
   { label: "Fermeture Hormuz", range: "2 Mar+", status: "active" },
   { label: "Front Liban", range: "2 Mar+", status: "active" },
   { label: "Expansion NATO/Turquie", range: "4 Mar+", status: "active" },
   { label: "Expansion Azerbaïdjan", range: "5 Mar+", status: "active" },
-  { label: "Attrition", range: "Sem 1-3", status: "active" },
-  { label: "Négociation", range: "Sem 2-5", status: "upcoming" },
-  { label: "Cessez-le-feu", range: "Sem 4-8", status: "upcoming" },
+  { label: "Minage Hormuz", range: "10 Mar+", status: "active" },
+  { label: "IEA 400M bbl SPR", range: "11 Mar+", status: "active" },
+  { label: "Attrition", range: "Sem 2-4", status: "active" },
+  { label: "Coalition Escorte", range: "En discussion", status: "upcoming" },
+  { label: "Négociation", range: "Sem 3-6", status: "upcoming" },
+  { label: "Cessez-le-feu", range: "Sem 5-10", status: "upcoming" },
   { label: "Réouverture", range: "Post-cessez", status: "upcoming" },
 ];
 
 // ─── SCENARIOS ───
 const SCENARIOS = [
   {
-    id: "bull", label: "BULL — Escalation Prolongée", prob: 35, color: "var(--green)",
-    desc: "Hormuz fermé 3+ semaines, conflit multi-fronts (Liban, proxies, NATO/Turquie), SPR non déployé, OPEC+ insuffisant. Bushehr menacé.",
+    id: "bull", label: "BULL — Escalation Prolongée / Hormuz miné", prob: 40, color: "var(--green)",
+    desc: "Hormuz reste fermé 6+ semaines, mines confirmées, coalition escorte échoue, conflit multi-fronts persiste. SPR insuffisant. Iran ouvre 'autres fronts'.",
     targets: [
-      { s: "Brent", v: "$100-120/bbl" }, { s: "Or", v: "$5,800-6,200/oz" },
-      { s: "Tankers (VLCC ME-CN)", v: "W700+ / $400K+ day" }, { s: "O&G CDN (XEG)", v: "+25-40%" },
-      { s: "Raffineurs US (MPC/VLO)", v: "+30-50% (diesel crack ATH)" },
-      { s: "Aluminium NA (CENX/AA)", v: "+20-40% (GCC force majeure)" },
-      { s: "Chimie NA (DOW/LYB)", v: "+15-25% (supply shift)" },
-      { s: "Potash (NTR)", v: "+15-25%" }, { s: "UAE ETF (short)", v: "-25-35%" },
+      { s: "Brent", v: "$120-150/bbl" }, { s: "Or", v: "$5,500-6,500/oz" },
+      { s: "Tankers (VLCC ME-CN)", v: "W500+ soutenu / $300K+ day" }, { s: "O&G CDN (XEG)", v: "+30-50%" },
+      { s: "Raffineurs US (MPC/VLO)", v: "+40-60% (diesel crack ATH prolongé)" },
+      { s: "Aluminium NA (CENX/AA)", v: "+25-50% (GCC force majeure prolongée)" },
+      { s: "Chimie NA (DOW/LYB)", v: "+20-30% (supply shift structurel)" },
+      { s: "Potash (NTR)", v: "+20-35% (planting panic)" }, { s: "UAE ETF (short)", v: "-30-45%" },
     ],
   },
   {
-    id: "base", label: "BASE — Résolution 4-5 sem", prob: 45, color: "var(--amber)",
-    desc: "Trump timeline (4-5 sem), Hormuz rouvre sem 3-4, Iran affaibli militairement, négociations via Oman",
+    id: "base", label: "BASE — Résolution 5-8 sem", prob: 40, color: "var(--amber)",
+    desc: "Coalition escorte se forme fin mars, passage partiel pour neutres (Inde, Chine), Iran affaibli mais pas capitulé, négociations via Oman/Chine",
     targets: [
-      { s: "Brent", v: "$85-95 → retour $72-76" }, { s: "Or", v: "$5,200-5,500 → $5,000" },
-      { s: "Tankers (VLCC ME-CN)", v: "W400-700 → normalise" }, { s: "O&G CDN (XEG)", v: "+15-25% → retour" },
-      { s: "Raffineurs US (MPC/VLO)", v: "+15-25% → normalise 48-72h post-Hormuz" },
-      { s: "Aluminium NA (CENX/AA)", v: "+10-20% (GCC redémarrage 6-12 mois)" },
-      { s: "Chimie NA (DOW/LYB)", v: "+5-15% (avantage structurel)" },
-      { s: "Potash (NTR)", v: "+10-15%" }, { s: "UAE ETF (short)", v: "-15-25%" },
+      { s: "Brent", v: "$95-105 → retour graduel $80-85" }, { s: "Or", v: "$5,000-5,400 → $4,800" },
+      { s: "Tankers (VLCC ME-CN)", v: "W300-500 → normalise graduellement" }, { s: "O&G CDN (XEG)", v: "+20-30% → retour partiel" },
+      { s: "Raffineurs US (MPC/VLO)", v: "+20-35% → normalise post-Hormuz" },
+      { s: "Aluminium NA (CENX/AA)", v: "+15-25% (GCC redémarrage 6-12 mois)" },
+      { s: "Chimie NA (DOW/LYB)", v: "+10-20% (avantage structurel)" },
+      { s: "Potash (NTR)", v: "+15-20%" }, { s: "UAE ETF (short)", v: "-20-30%" },
     ],
   },
   {
-    id: "bear", label: "BEAR — Dé-escalation Rapide", prob: 20, color: "var(--red)",
-    desc: "Iran capitule vite (leadership décapité), Hormuz rouvre <10 jours, deal rapide",
+    id: "bear", label: "BEAR — Dé-escalation Rapide / Deal", prob: 20, color: "var(--red)",
+    desc: "Trump deal surprise avec Mojtaba Khamenei, Hormuz rouvre <3 semaines, Iran accepte termes, coalition navale force passage",
     targets: [
-      { s: "Brent", v: "Retour $68-72" }, { s: "Or", v: "Retour $5,000-5,100" },
-      { s: "Tankers (VLCC ME-CN)", v: "Collapse rapide" }, { s: "O&G CDN (XEG)", v: "Give-back 50-70%" },
+      { s: "Brent", v: "Retour $75-80" }, { s: "Or", v: "Retour $4,600-4,800" },
+      { s: "Tankers (VLCC ME-CN)", v: "Collapse rapide — déminage prend des semaines" }, { s: "O&G CDN (XEG)", v: "Give-back 50-70%" },
       { s: "Raffineurs US (MPC/VLO)", v: "Give-back rapide — cracks normalisent vite" },
       { s: "Aluminium NA (CENX/AA)", v: "Partiel — GCC recovery lent même si Hormuz réouvre" },
       { s: "Chimie NA (DOW/LYB)", v: "Flat/léger give-back — avantage structurel persiste" },
@@ -85,19 +88,22 @@ const SECTORS = [
     ],
     etfs: [{ symbol: "XLE", note: "Proxy large cap energy" }],
     kpis: [
-      { name: "Transit Hormuz", val: "5 crossings J6 (vs 107 avg) — effectivement fermé J7", sig: "bull", src: "Windward/Wikipedia" },
-      { name: "VLCC ME-CN (TD3C)", val: "W700 / $424-481K/day ATH", sig: "bull", src: "LSEG/Sinokor/Baltic" },
-      { name: "VLCC Immobilisés", val: "72 VLCCs (8% flotte mondiale)", sig: "bull", src: "Arrow Brokers" },
-      { name: "Total Tankers Bloqués", val: "329 crude+product, ~150 à l'ancre hors détroit", sig: "bull", src: "Arrow/AJ/Wikipedia" },
-      { name: "Tankers Endommagés", val: "5+ tankers frappés, 2 morts équipage", sig: "bull", src: "Al Jazeera" },
-      { name: "P&I Cancel", val: "EFFECTIF depuis 5 mars — transit sans assurance", sig: "bull", src: "Gard/Skuld/London" },
-      { name: "Freight $/bbl", val: "$20/bbl ME→CN (vs $2.50 moy 2025) = x8", sig: "bull", src: "Sinokor/Bloomberg" },
-      { name: "AIS Jamming", val: "44 zones injection + 92 zones denial dans le Gulf", sig: "bull", src: "Windward" },
-      { name: "Trump DFC Insurance", val: "Annoncé, Bessent dit 'annonces à venir' — toujours pas opérationnel", sig: "neutral", src: "CNBC/Bessent" },
-      { name: "Navy Escorts", val: "Shipping industry : 'welcome step' mais need 'genuinely safe'", sig: "neutral", src: "NPR/Seanergy CEO" },
-      { name: "Bab el-Mandeb", val: "21 crossings J6 (+950% vs jour précédent) — rerouting", sig: "watch", src: "Windward" },
-      { name: "STNG", val: "$77-80 (52-wk high $81.85). Strong Buy consensus", sig: "bull", src: "TradingView/Investing" },
-      { name: "Kuwait Explosion", val: "Tanker + cargo endommagés, oil spill — zone danger s'élargit", sig: "bull", src: "Windward/AJ" },
+      { name: "Transit Hormuz", val: "~0 trafic commercial sauf navires iraniens/indiens autorisés", sig: "bull", src: "Windward/Wikipedia" },
+      { name: "VLCC ME-CN (TD3C)", val: "W473+ / $486K/day (ATH)", sig: "bull", src: "Baltic/Hellenic" },
+      { name: "Iran Position", val: "'Ouvert mais fermé à nos ennemis' — Araghchi (FM)", sig: "bull", src: "Al Jazeera" },
+      { name: "Iran Mines", val: "Mines navales confirmées dans le détroit — US détruit 16 mouilleurs", sig: "bull", src: "CNN/NPR/Trump" },
+      { name: "India Passage", val: "2 navires indiens autorisés à transiter (LPG 40K tonnes)", sig: "watch", src: "Newsweek/Reuters" },
+      { name: "IEA SPR Release", val: "400M bbl — record historique, MAIS = 26 jours seulement de supply perdu", sig: "neutral", src: "IEA/CNBC" },
+      { name: "US SPR Contribution", val: "172M bbl sur 120 jours = 1.4Mbpd (15% du supply perdu)", sig: "neutral", src: "DOE/CNBC" },
+      { name: "P&I Cancel", val: "EFFECTIF depuis 5 mars — transit sans assurance sauf zones autorisées", sig: "bull", src: "Gard/Skuld" },
+      { name: "Freight $/bbl", val: "$20+/bbl ME→CN (vs $2.50 moy 2025) = x8", sig: "bull", src: "Baltic/Bloomberg" },
+      { name: "Ships Attacked", val: "12+ navires commerciaux frappés depuis début conflit", sig: "bull", src: "NPR/Wikipedia" },
+      { name: "Navy Escorts", val: "US Navy 'pas prête' — Wright dit fin mars au plus tôt", sig: "neutral", src: "CNBC/Wright" },
+      { name: "Trump Coalition", val: "Demande UK/NATO/Chine d'envoyer navires — 'whatever it takes'", sig: "watch", src: "FT/CNN" },
+      { name: "UK Starmer", val: "'Working with allies' pour rouvrir — pas une mission NATO", sig: "watch", src: "Reuters/CNN" },
+      { name: "Bessent", val: "'Fine' avec passage partiel navires indiens/iraniens pour l'instant", sig: "watch", src: "Reuters/CNBC" },
+      { name: "Duqm/Salalah", val: "Ports omanais frappés par drones — alternatives Hormuz attaquées", sig: "bull", src: "Wikipedia" },
+      { name: "Dubai Airport", val: "SUSPENDU lundi — drone incident, feu près aéroport", sig: "bull", src: "CBS/Dubai Media" },
     ],
     exhaustion: [
       "DFC insurance opérationnel + premiers tankers acceptent couverture US",
@@ -114,7 +120,7 @@ const SECTORS = [
         "1984-88 : 400+ navires attaqués dans le Golfe, assurances x3-5x, mais les tankers ont continué à naviguer. Rates élevés soutenus ~4 ans.",
         "1990 : Rates spot +100% sur invasion Kuwait, normalisation rapide (<6 mois) post-libération.",
         "2022-23 : Ukraine = tanker rates TNK +108%, INSW +98%, FRO +70% sur 12 mois (rerouting, sanctions).",
-        "⚡ JOUR 7 UPDATE : AIS jamming massif (44 zones injection, 92 denial). Tanker+cargo explosion Kuwait + oil spill — zone danger s'élargit au nord du Gulf. Bab el-Mandeb +950% trafic (rerouting). P&I annulé depuis J5. Bessent dit 'annonces à venir' sur DFC mais toujours rien de concret. Shipping CEOs : 'pas suffisant tant que pas genuinely safe'. Iran strikes Bahrain (raffinerie touchée). Le shipping industry NE REVIENT PAS tant que le conflit dure.",
+        "⚡ JOUR 17 : VLCC TD3C W473+ / $486K/day (Hellenic). Iran mine le détroit — 16 mouilleurs détruits par US. Navires frappés continuent (12+ depuis début). P&I toujours annulé. Trump demande coalition escorte — UK/NATO/Chine sollicités, personne n'accepte publiquement. IEA 400M bbl SPR = aucun impact sur shipping. Iran FM : 'ouvert mais fermé à nos ennemis'. Inde autorisée à transiter (2 navires LPG). Dubai airport suspendu lundi (drone). Ports omanais Duqm/Salalah frappés — alternatives Hormuz attaquées.",
       ],
       analog: "Tanker War 1987 (Operation Earnest Will — escortes US) MAIS cette fois: W700 vs W225 en 1987, assurances annulées (pas juste majorées), zéro transit vs transit réduit. Aucun comparable historique pour les rates actuels.",
     },
@@ -128,19 +134,21 @@ const SECTORS = [
     ],
     etfs: [{ symbol: "XEG.TO", note: "iShares TSX Energy" }, { symbol: "ZEO.TO", note: "BMO Equal Weight O&G" }],
     kpis: [
-      { name: "Brent Spot", val: "$89.21 (+22.4% vs semaine passée)", sig: "bull", src: "Commodity.com" },
-      { name: "Brent Futures", val: "$84.48 (range $83-86, 52-wk high $86.28)", sig: "bull", src: "Yahoo/Investing" },
-      { name: "WTI", val: "$79.88-85.91 (near 52-wk high)", sig: "bull", src: "Commodity.com/CME" },
-      { name: "Brent 7-day", val: "+22%+ ($72→$89 spot)", sig: "bull", src: "Commodity.com" },
-      { name: "Goldman Q2", val: "$76 avg (+$10). '$100 si Hormuz 5 sem'", sig: "bull", src: "Goldman/Reuters" },
-      { name: "UBS 2026", val: "$72 avg (+$10). '>$90 si infra frappée'", sig: "bull", src: "UBS/Reuters" },
-      { name: "Iraq Cuts Forcés", val: "-1.5Mbpd (stockage saturé, expansion possible -3Mbpd)", sig: "bull", src: "Reuters/SED" },
-      { name: "Oxford Economics", val: "'Sell extreme moves, will fade. Conflit max 2 mois'", sig: "watch", src: "Oxford/Alpine Macro" },
-      { name: "XLE Retail Inflow", val: "$49M lundi — record all-time", sig: "bull", src: "VandaTrack" },
-      { name: "TMX Pipeline", val: "Stable — avantage CDN (Brent Pacific pricing)", sig: "bull", src: "Trans Mountain" },
-      { name: "Gasoline US", val: "$3.19+ gal (+22¢ vs semaine passée)", sig: "bull", src: "AAA" },
-      { name: "Ras Tanura (Aramco)", val: "Drone iranien sur terminal chargement — MoD Saoudi", sig: "bull", src: "Investing.com/Reuters" },
-      { name: "CDN = Best Positioned", val: "OilPrice: 'most reliable oil supplier' — TMX non-Hormuz", sig: "bull", src: "OilPrice.com" },
+      { name: "Brent Spot", val: "$103-105 (a fermé $103.14 vendredi, +44% depuis début conflit)", sig: "bull", src: "Investing.com/CNBC" },
+      { name: "Brent Futures", val: "$104.37 (52-wk high $119.50 — atteint ~$120 lundi 10 mars)", sig: "bull", src: "Investing.com" },
+      { name: "WTI", val: "$98.71 (fermé vendredi, up 3.11%)", sig: "bull", src: "CNBC/CME" },
+      { name: "Brent >$100", val: "2e journée consécutive au-dessus de $100 — 1re fois depuis août 2022", sig: "bull", src: "CNBC" },
+      { name: "EIA Forecast", val: "Brent >$95/bbl 2 prochains mois, retour $80 Q3, $70 fin 2026", sig: "bull", src: "EIA STEO" },
+      { name: "IEA SPR 400M bbl", val: "Record historique — marché shrug off. 'Only 26 days of lost supply'", sig: "neutral", src: "IEA/Macquarie/CNBC" },
+      { name: "US SPR 172M bbl", val: "120 jours = 1.4Mbpd. '13 jours avant 1er barrel livré'", sig: "neutral", src: "DOE/JPMorgan" },
+      { name: "Supply Lost", val: "~15Mbpd crude + ~5Mbpd products bloqués = 'largest disruption in history'", sig: "bull", src: "IEA/Rystad" },
+      { name: "Iran Spokesmen", val: "'$200/bbl si vous continuez' — Zolfaqari", sig: "bull", src: "CNBC/Iran" },
+      { name: "Trump", val: "'Oil will come tumbling down when it's over' — pas de timeline", sig: "watch", src: "CBS/Reuters" },
+      { name: "Exxon/Chevron/Conoco", val: "CEOs avertissent admin que disruption va empirer", sig: "bull", src: "WSJ" },
+      { name: "Russia Waiver", val: "US 30-day waiver pour Inde acheter crude russe (expire 4 avril)", sig: "watch", src: "Bessent/Euronews" },
+      { name: "Saudi Reroute", val: "Pipeline Est-Ouest vers Yanbu (Red Sea) actif, mais capacité limitée", sig: "neutral", src: "Wikipedia/Reuters" },
+      { name: "Gasoline US", val: "+23% depuis début guerre — AAA", sig: "bull", src: "AAA" },
+      { name: "CDN = Best Positioned", val: "TMX pipeline, non-Hormuz supply. 'Most reliable supplier'", sig: "bull", src: "OilPrice.com" },
     ],
     exhaustion: [
       "Trump tweet baisser gas / SPR release (Rubio dit 'pas encore')",
@@ -156,9 +164,9 @@ const SECTORS = [
         "1990 : Brent $17→$46 (+170%) en 10 semaines. Retour à $20 dès Desert Storm (jan 1991).",
         "1979 : Brent $14→$39 (+179%). Recovery 2-3 ans. Mais contexte différent (pas de US shale, pas de SPR).",
         "2003 Irak : Brent $28→$37 (+32%), retour en 3 mois. Victoire rapide = spike court.",
-        "⚡ JOUR 7 (6 mars) : Brent spot $89 (+22% 1 sem). Hegseth 'just getting started'. Israel 'next phase' — 2,500 frappes, 6,000+ armes. Bahrain frappé (hôtel, résidentiel, raffinerie). Azerbaijan frappé pour 1re fois. Gasoline $3.19+. Oxford Economics : 'max 2 mois, sell extreme moves'. MAIS Iran dit 'ready for invasion'. Aucun signe de dé-escalation.",
+        "⚡ JOUR 17 (16 mars) : Brent >$100 deux jours consécutifs (close $103.14 vendredi). WTI $98.71. IEA 400M bbl SPR release = record historique mais marché shrug off — 'only 26 days of lost supply'. Mojtaba Khamenei (nouveau Supreme Leader) ordonne Hormuz fermé. Iran mine le détroit (16 mouilleurs détruits par US). Trump demande coalition navale UK/NATO/Chine — personne n'a accepté publiquement. Iran FM Araghchi : 'ouvert mais fermé à nos ennemis'. EIA prévoit Brent >$95 pendant 2 mois.",
       ],
-      analog: "Gulf War I pour la durée (Trump dit 4-5 sem). Mais supply buffers modernes (SPR, shale) limitent vs 1973/1979.",
+      analog: "Gulf War I pour la durée mais supply buffers modernes (SPR 400M bbl, shale, pipelines saoudiens). Scénario potentiellement pire que 1990 car Hormuz EST miné cette fois-ci.",
     },
   },
   {
@@ -170,17 +178,17 @@ const SECTORS = [
     ],
     etfs: [{ symbol: "GLD", note: "SPDR Gold Trust" }, { symbol: "GDX", note: "Gold Miners" }, { symbol: "GDXJ", note: "Junior Miners" }],
     kpis: [
-      { name: "Or Spot", val: "$5,079-5,102 (correction continue du ATH)", sig: "mixed", src: "LiteFinance/LongForecast" },
-      { name: "Or Range J7", val: "$5,074-$5,151", sig: "mixed", src: "LongForecast" },
-      { name: "Or ATH Semaine", val: "$5,400 (lundi 2 mars, +2%)", sig: "bull", src: "CNN/Yahoo" },
-      { name: "Or Selloff J3-7", val: "De $5,400 → $5,079 (-6%). DXY fort + profit-taking", sig: "watch", src: "Multiple" },
-      { name: "Dubai Air Cargo", val: "HALT — 20% global gold flows bloqués (2e exportateur)", sig: "bull", src: "FT/USAGOLD" },
-      { name: "Physical Premium", val: "India flip discount→parity en 48h. Asian premiums up", sig: "bull", src: "USAGOLD/WGC" },
-      { name: "DXY", val: "~99 (force = headwind for gold)", sig: "mixed", src: "Yahoo Finance" },
-      { name: "Silver (Ag)", val: "$82-93 (volatile, $93.41 ATH lundi)", sig: "mixed", src: "Investing.com" },
+      { name: "Or Spot", val: "$5,018-5,020 (lundi — brièvement sous $5,000)", sig: "mixed", src: "LiteFinance/Yahoo" },
+      { name: "Or Futures", val: "Ouvert $4,996 lundi (-1.3% vs close vendredi $5,062)", sig: "mixed", src: "Yahoo Finance" },
+      { name: "Or ATH 2026", val: "$5,595 (29 janvier) — $5,418 pic semaine 2 mars", sig: "bull", src: "LiteFinance" },
+      { name: "Or vs J7", val: "$5,018 vs $5,080 J7 — consolidation range $4,995-$5,200", sig: "mixed", src: "Multiple" },
+      { name: "DXY", val: "Fort — headwind principal pour l'or", sig: "mixed", src: "Multiple" },
+      { name: "Silver (Ag)", val: "$79.50 (-2.23% lundi) — sous-performe l'or", sig: "mixed", src: "News24/Investing" },
+      { name: "Support $5,000", val: "Niveau psychologique clé — testé et tenu (pour l'instant)", sig: "watch", src: "LiteFinance" },
+      { name: "Fed", val: "Hold — 95.6% prob no cut mars. Taux 3.50-3.75%", sig: "mixed", src: "CME FedWatch" },
       { name: "HSBC Target", val: "$6,500/oz fin 2026", sig: "bull", src: "HSBC/CNBC" },
-      { name: "Gold-Silver Ratio", val: "61.8:1", sig: "neutral", src: "USAGOLD" },
-      { name: "Fed", val: "Hold 'quite some time' — 95.6% prob no cut mars", sig: "mixed", src: "CME FedWatch" },
+      { name: "Central Bank Buying", val: "Chine, Inde, ME — rythme record depuis 2022", sig: "bull", src: "WGC/Multiple" },
+      { name: "Conflit = Floor", val: "Géopolitique ME fournit un plancher malgré DXY fort", sig: "bull", src: "Multiple" },
     ],
     exhaustion: [
       "Or échoue à casser ATH Jan ($5,589) sur fort volume",
@@ -196,7 +204,7 @@ const SECTORS = [
         "1973 : Or +47% — début d'un bull séculaire après Nixon décroche le dollar de l'or (1971).",
         "1979 : Or +134% → $850/oz ATH (tenu 28 ans). Chute -60% quand Volcker monte les taux.",
         "1990 : Or +8-15% sur 2 mois, retour au pré-guerre en 6 mois.",
-        "⚡ JOUR 7 : Or $5,079-5,102, correction continue (-6% du ATH $5,400). MAIS : Dubai air cargo HALT = 20% global gold supply chain bloquée. Premiums physiques Inde passent de discount → parité en 48h. Le marché physique se serre pendant que le papier corrige. DXY fort reste headwind. Conflit s'intensifie = thèse structurelle intacte. Watch: $5,000 comme support psychologique.",
+        "⚡ JOUR 17 : Or $5,018, futures brièvement sous $5,000. DXY fort reste headwind. MAIS Brent >$100 = inflation énergie + support structurel. Dubai airport suspendu (drone). Le physical market reste tendu. Pattern : l'or sous-performe le pétrole dans les 2-3 premières semaines d'un conflit — normal. Watch : $4,995 support critique, cassure = acceleration baisse vers $4,800.",
       ],
       analog: "Bull structurel type 1979. Mais le marché est DÉJÀ en bull. Risk = Fed keeps rates high pour combattre l'inflation énergie.",
     },
@@ -249,16 +257,18 @@ const SECTORS = [
     ],
     etfs: [{ symbol: "UAE", note: "iShares MSCI UAE — 25% RE, 38% financials" }],
     kpis: [
-      { name: "UAE ETF Price", val: "$20.31 (range 20.18-20.53)", sig: "bear_target", src: "Investing.com" },
-      { name: "UAE 52w Range", val: "$15.40-$22.29", sig: "bear_target", src: "Investing.com" },
-      { name: "Bahrain Strikes J7", val: "Hôtel, 2 résidentiels, raffinerie — premiers strikes Bahrain", sig: "bear_target", src: "CNN" },
-      { name: "Azerbaijan Strikes", val: "Iran frappe Azerbaijan — 1er pays nouveau touché J6+", sig: "bear_target", src: "CNN" },
-      { name: "Israel 'Next Phase'", val: "IDF chief: 2,500 frappes, 6,000+ armes. 'Push deeper into Lebanon'", sig: "bear_target", src: "CNN" },
-      { name: "Beirut Évacuation", val: "500,000+ personnes fuient Dahiyeh — panique de masse", sig: "bear_target", src: "CNN" },
-      { name: "Iran Death Toll", val: "1,200+ morts (HRANA/AJ). Internet blackout persiste", sig: "bear_target", src: "CNN/AJ" },
-      { name: "State Dept", val: "'DEPART NOW' — Rubio: leave immediately. 12+ pays", sig: "bear_target", src: "State/CBS" },
-      { name: "Airlines", val: "Espace aérien Iran/Iraq/partie du Gulf fermé", sig: "bear_target", src: "CNN/AJ" },
-      { name: "Goldman Sachs CEO", val: "'Surprisingly benign market reaction' — 'needs weeks to digest'", sig: "watch", src: "CNBC/AFR Summit" },
+      { name: "UAE ETF Price", val: "Range $18-20 (pression baissière continue)", sig: "bear_target", src: "Investing.com" },
+      { name: "Dubai Airport", val: "SUSPENDU lundi — drone incident, feu près aéroport", sig: "bear_target", src: "CBS/Dubai Media" },
+      { name: "UAE Air Defense", val: "Intercepte missiles/drones iraniens lundi — 'currently responding'", sig: "bear_target", src: "CBS/UAE MoD" },
+      { name: "Umm al Quwain", val: "Feu après drone — nouvel émirat touché", sig: "bear_target", src: "Reuters" },
+      { name: "Fujairah", val: "Oil facility frappée 14 mars (débris drone intercepté)", sig: "bear_target", src: "AP/Wikipedia" },
+      { name: "Bahrain Refinery", val: "Bapco raffinerie frappée 9 mars", sig: "bear_target", src: "Reuters/AJ" },
+      { name: "Duqm/Salalah (Oman)", val: "Ports frappés par drones — alternatives Hormuz attaquées", sig: "bear_target", src: "Wikipedia" },
+      { name: "F1 Annulé", val: "GP Bahrain et Arabie Saoudite annulés (avril) — sécurité", sig: "bear_target", src: "CNN" },
+      { name: "Saudi Interceptions", val: "60+ drones interceptés depuis minuit lundi", sig: "bear_target", src: "CBS/Saudi MoD" },
+      { name: "Iran FM", val: "'Attaques continueront tant que l'agression continue'", sig: "bear_target", src: "Qatar FM/AJ" },
+      { name: "UK Starmer", val: "'Travailler avec alliés' pour Hormuz — reconnaît difficulté", sig: "watch", src: "Reuters" },
+      { name: "Consumer Sentiment US", val: "Plus bas en 3 mois — gas prices + incertitude", sig: "watch", src: "Yahoo Finance" },
     ],
     exhaustion: [
       "Vols commerciaux reprennent à Dubai/Abu Dhabi",
@@ -413,41 +423,44 @@ const SECTORS = [
 const STATUSES = ["inactive", "rumored", "developing", "pending", "confirmed"];
 const initDeesc = () => [
   { cat: "Diplomatique", signals: [
-    { text: "Mojtaba Khamenei (fils) candidat Supreme Leader — continuité IRGC, pas réforme", weight: 3, status: "developing" },
-    { text: "Trump engage avec nouveau leadership iranien (Hegseth: 'just getting started')", weight: 4, status: "inactive" },
-    { text: "Médiation Oman/Qatar — Qatar frappé, focus défensif", weight: 3, status: "inactive" },
-    { text: "Sénat US résolution limiter Trump — REJETÉE par républicains", weight: 2, status: "confirmed" },
-    { text: "Carney (Canada) : 'ne peut exclure participation'. Coalition s'élargit", weight: 2, status: "developing" },
-    { text: "France autorise bases US. NATO AWACS en Turquie", weight: 2, status: "confirmed" },
-    { text: "Iran dit prêt pour invasion — aucun signal de capitulation", weight: 5, status: "confirmed" },
+    { text: "Mojtaba Khamenei nouveau Supreme Leader — ordonne Hormuz fermé comme levier", weight: 5, status: "confirmed" },
+    { text: "Iran FM Araghchi rejette tout dialogue avec US — 'no reason to talk'", weight: 5, status: "confirmed" },
+    { text: "Trump 'not prepared to reach a deal' avec Iran", weight: 4, status: "confirmed" },
+    { text: "Trump demande coalition navale UK/NATO/Chine — 'whatever it takes'", weight: 4, status: "developing" },
+    { text: "UK Starmer : 'working with allies' pour réouverture — pas mission NATO", weight: 3, status: "developing" },
+    { text: "Bessent-He Lifeng talks Paris — 'very good'. Sommet Xi potentiellement retardé", weight: 3, status: "developing" },
+    { text: "Australie et Japon refusent d'envoyer navires", weight: 2, status: "confirmed" },
+    { text: "Iran laisse passer neutres (Inde, Turquie) — passage sélectif", weight: 3, status: "confirmed" },
+    { text: "UN Security Council résolution 135 pays — Chine/Russie s'abstiennent", weight: 2, status: "confirmed" },
   ]},
   { cat: "Militaire", signals: [
-    { text: "Marine iranienne 'destroyed' (Trump) — IRIS Dena coulée (87 morts Sri Lanka)", weight: 4, status: "confirmed" },
-    { text: "Iran 1,200+ morts. Israel 2,500 frappes, 6,000+ armes. IDF 'next phase'", weight: 5, status: "confirmed" },
-    { text: "Hegseth: 'just getting started', 'new capabilities' déployées J7", weight: 5, status: "confirmed" },
-    { text: "Bahrain frappé (hôtel, résidentiels, raffinerie) + Azerbaijan touché", weight: 4, status: "confirmed" },
-    { text: "6 US service members tués au Kuwait (drone) — premières pertes US", weight: 3, status: "confirmed" },
-    { text: "Israel évacuation massive Beirut Dahiyeh (500K+), front Liban 'next phase'", weight: 4, status: "confirmed" },
-    { text: "Iran 'ready for invasion' — AUCUN signe capitulation leadership", weight: 5, status: "confirmed" },
-    { text: "Iran strikes diminuent en volume MAIS menace reste élevée", weight: 3, status: "developing" },
+    { text: "Israel prépare 3+ semaines frappes additionnelles — 'thousands of targets'", weight: 5, status: "confirmed" },
+    { text: "Iran : ~700 missiles + 3,600 drones tirés depuis début conflit", weight: 5, status: "confirmed" },
+    { text: "Iran mine le détroit d'Hormuz — US détruit 16 mouilleurs", weight: 5, status: "confirmed" },
+    { text: "12+ navires commerciaux frappés — Thai Mayuree Naree en feu", weight: 4, status: "confirmed" },
+    { text: "US Marine expeditionary unit en route vers ME", weight: 4, status: "confirmed" },
+    { text: "KC-135 crash Iraq — 6 US service members tués", weight: 3, status: "confirmed" },
+    { text: "Trump dit Iran 'about to surrender' — Iran dément", weight: 3, status: "confirmed" },
+    { text: "Trump : 'obliterated every military target' — Iran continue d'attaquer", weight: 4, status: "confirmed" },
   ]},
   { cat: "Maritime", signals: [
-    { text: "P&I cancel EFFECTIF aujourd'hui 5 mars — transit sans assurance", weight: 5, status: "confirmed" },
-    { text: "DFC insurance annoncé mais pas opérationnel — détails inconnus", weight: 4, status: "pending" },
-    { text: "US Navy escortes : Navy dit 'pas de dispo' toujours", weight: 4, status: "inactive" },
-    { text: "Tanker explosion 30nm Kuwait — escalation zone danger", weight: 4, status: "confirmed" },
-    { text: "Aramco tente rerouter exports via pipeline E-W → Red Sea (Jeddah)", weight: 3, status: "developing" },
-    { text: "Maersk/Hapag-Lloyd toujours suspendus", weight: 5, status: "inactive" },
-    { text: "Houthis n'ont PAS repris attaques Red Sea (pour l'instant)", weight: 3, status: "confirmed" },
+    { text: "P&I cancel EFFECTIF depuis 5 mars — transit sans assurance", weight: 5, status: "confirmed" },
+    { text: "Iran FM : Hormuz 'ouvert mais fermé à nos ennemis'", weight: 5, status: "confirmed" },
+    { text: "Passage sélectif : navires indiens/turcs autorisés par Iran", weight: 3, status: "confirmed" },
+    { text: "US Navy escortes : Wright dit 'fin mars au plus tôt'", weight: 4, status: "developing" },
+    { text: "Ports omanais Duqm/Salalah frappés par drones", weight: 4, status: "confirmed" },
+    { text: "Saudi pipeline Est-Ouest vers Yanbu actif — capacité limitée", weight: 3, status: "confirmed" },
+    { text: "Bessent : 'signs of more ships'. 'Fine' avec passage partiel", weight: 3, status: "developing" },
+    { text: "IEA : 'largest supply disruption in history' — 15Mbpd+5Mbpd bloqués", weight: 5, status: "confirmed" },
   ]},
   { cat: "Marché", signals: [
-    { text: "S&P 500 rebond +0.78% mercredi — marché s'adapte", weight: 2, status: "developing" },
-    { text: "VIX repli 22.38 (vs pic 27.3) — stress baisse", weight: 2, status: "developing" },
-    { text: "Or rebond $5,172 après selloff — stabilisation", weight: 2, status: "developing" },
-    { text: "Brent stable $82 vs $85 ATH — pas de breakout $100", weight: 3, status: "developing" },
-    { text: "UBS: 'equities will produce good gains, stick with base case'", weight: 2, status: "rumored" },
-    { text: "Bessent: 15% global tariff cette semaine + mesures fuel à venir", weight: 3, status: "developing" },
-    { text: "Bitcoin $71K (+5%) — alternative safe-haven narrative", weight: 1, status: "rumored" },
+    { text: "Brent >$100 deux jours consécutifs — $103.14 vendredi", weight: 4, status: "confirmed" },
+    { text: "IEA 400M bbl SPR release — record, marché shrug off", weight: 3, status: "confirmed" },
+    { text: "VIX 27.29 — elevated. S&P 3.5-month low", weight: 3, status: "developing" },
+    { text: "Or teste $5,000 support — DXY fort pèse", weight: 2, status: "developing" },
+    { text: "Exxon/Chevron/Conoco CEOs avertissent admin", weight: 3, status: "confirmed" },
+    { text: "Consumer sentiment US 3-month low — gas prices", weight: 2, status: "confirmed" },
+    { text: "ING : 'market highs still ahead unless Hormuz reopens'", weight: 4, status: "confirmed" },
   ]},
 ];
 
@@ -537,6 +550,10 @@ const PATTERN_RULES = [
   { rule: "⚡ NOUVEAU J7 : Gold physical vs paper divergence", desc: "Or papier corrige (-6% du ATH) MAIS Dubai air cargo halt = 20% flux physiques bloqués. Premiums physiques Inde flip de discount à parité en 48h. Le marché physique se serre pendant que le papier vend. Pattern = opportunité si conflit dure." },
   { rule: "⚡ NOUVEAU J7 : Fertilisants = bombe à retardement", desc: "Urea +10-16%, phosphate +$30/t, 25% azote mondial via Hormuz. Supply chain 30 jours Gulf→US + 3-4 sem vers Corn Belt. Si conflit dure 5+ sem → supply n'arrive pas pour planting season. Potash CDN (NTR) = pas encore impacté directement mais demand shift corn→soja = risk." },
   { rule: "⚡ NOUVEAU : Diesel crack > gasoline crack", desc: "Hormuz exporte LPG/naphta/diesel, PAS gasoline. La fermeture frappe les cracks distillats. Ras Tanura (Aramco) fermée = diesel mondial en crise. Raffineurs US achètent WTI $75, vendent diesel à prix de panique. Crack spread = upside NON-LINÉAIRE vs upstream (linéaire). MPC > VLO (P/E 15x vs 27x, MPLX floor, capture 114%)." },
+  { rule: "⚡ NOUVEAU J17 : IEA 400M bbl = record mais insuffisant", desc: "Plus gros SPR release de l'histoire. Marché shrug off immédiatement — IEA couvre 26 jours seulement de supply perdu (15Mbpd crude + 5Mbpd products). ING : 'only way to see oil prices lower is getting oil through Hormuz'. Le supply gap structurel reste entier." },
+  { rule: "⚡ NOUVEAU J17 : Mines navales = nouveau mécanisme de blocus", desc: "Iran mine le détroit (16 mouilleurs détruits par US). Même si cessez-le-feu, déminage prend des SEMAINES. Les mines prolongent le blocus au-delà du conflit militaire. Pattern nouveau = timeline de réouverture s'allonge significativement." },
+  { rule: "⚡ NOUVEAU J17 : Passage sélectif = Iran contrôle le pricing", desc: "Iran laisse passer navires indiens/turcs = montre qu'il peut calibrer la pression. C'est un blocus POLITIQUE, pas total. Les alliés US/UK restent bloqués. Iran utilise Hormuz comme levier de négociation, pas comme arme de destruction. Pattern = conflit prolongé, pas résolution rapide." },
+  { rule: "⚡ NOUVEAU J17 : Coalition navale = semaines avant opérationnel", desc: "Trump demande UK/NATO/Chine d'envoyer navires. Australie et Japon refusent. UK dit 'working with allies'. Wright dit US Navy escortes 'fin mars au plus tôt'. Même si coalition se forme, déminage + sécurisation = 3-4 semaines minimum avant passage commercial sûr." },
 ];
 
 const SOURCES = [
@@ -575,6 +592,37 @@ const ROUTINE = [
 
 // ─── FLASH NEWS ───
 const FLASH_NEWS = [
+  { time: "16 Mar", text: "🔴 JOUR 17 : Dubai airport SUSPENDU — drone incident, feu près aéroport. UAE air defense 'currently responding'", cat: "escal" },
+  { time: "16 Mar", text: "🔴 Iran FM Araghchi : Hormuz 'ouvert mais fermé à nos ennemis'. Rejette tout dialogue avec US", cat: "mil" },
+  { time: "16 Mar", text: "Brent $104+ lundi. Trump : 'oil will come tumbling down' — pas de timeline", cat: "market" },
+  { time: "16 Mar", text: "Or futures ouvrent sous $5,000 ($4,996) — rebond en cours. DXY fort", cat: "market" },
+  { time: "16 Mar", text: "Bessent : 'fine' avec passage partiel navires indiens/iraniens. Inde 2 navires LPG autorisés", cat: "hormuz" },
+  { time: "16 Mar", text: "Umm al Quwain (UAE) — feu après frappe drone. Nouvel émirat touché", cat: "escal" },
+  { time: "16 Mar", text: "Australie refuse d'envoyer navires à Hormuz. Japon aussi", cat: "mil" },
+  { time: "16 Mar", text: "Trump menace retarder sommet Xi Jinping si Chine n'aide pas à rouvrir Hormuz", cat: "mil" },
+  { time: "15 Mar", text: "🔴 JOUR 16 : UK Starmer discute avec Trump et Carney sur réouverture Hormuz", cat: "mil" },
+  { time: "15 Mar", text: "Israel IDF : prépare 3+ semaines frappes additionnelles, 'thousands of targets' encore", cat: "mil" },
+  { time: "15 Mar", text: "UK Energy Sec Miliband : 'any options' pour sécuriser Hormuz", cat: "mil" },
+  { time: "14 Mar", text: "Débris drone frappent oil facility à Fujairah (UAE) — AP Photo", cat: "escal" },
+  { time: "14 Mar", text: "Brent close $103.14 (+2.67%). WTI $98.71 (+3.11%). 2e jour >$100", cat: "market" },
+  { time: "14 Mar", text: "CNBC : IEA 400M bbl SPR 'nowhere near enough'. Marché ignore le release", cat: "market" },
+  { time: "13 Mar", text: "🔴 JOUR 14 : Trump dit Iran 'about to surrender' — Iran dément, promet de continuer", cat: "mil" },
+  { time: "13 Mar", text: "Brent ferme >$100 pour 1re fois — $100.46 (+9.22%). Mojtaba Khamenei ordonne Hormuz fermé", cat: "market" },
+  { time: "13 Mar", text: "2 tankers + cargo frappés au large Iraq/UAE — attaques continuent", cat: "hormuz" },
+  { time: "13 Mar", text: "Energy Sec Wright : US Navy escortes 'end of March' au plus tôt", cat: "hormuz" },
+  { time: "12 Mar", text: "Mojtaba Khamenei (nouveau Supreme Leader) : Hormuz = 'tool to pressure enemy'", cat: "mil" },
+  { time: "12 Mar", text: "IEA SPR 400M bbl — plus gros release de l'histoire. US contribue 172M bbl", cat: "market" },
+  { time: "11 Mar", text: "🔴 JOUR 12 : Vague massive d'attaques sur navires — Thai MV Mayuree Naree en feu, 3 disparus", cat: "hormuz" },
+  { time: "11 Mar", text: "G7 d'accord pour explorer escortes navales. IEA annonce 400M bbl release", cat: "mil" },
+  { time: "11 Mar", text: "Brent spike à $119 puis retombe à $92 post-IEA annonce", cat: "market" },
+  { time: "10 Mar", text: "🔴 Iran commence à MINER le détroit d'Hormuz — CNN/intelligence US", cat: "hormuz" },
+  { time: "10 Mar", text: "US détruit 16 mouilleurs de mines iraniens. Trump : 'remove mines IMMEDIATELY'", cat: "mil" },
+  { time: "10 Mar", text: "Saudi Arabia intensifie rerouting pipeline Est-Ouest vers Yanbu (Red Sea)", cat: "hormuz" },
+  { time: "10 Mar", text: "Bulk carrier frappé 36nm off Abu Dhabi — 1er incident maritime en jours", cat: "hormuz" },
+  { time: "9 Mar", text: "Bahrain raffinerie Bapco frappée par Iran (Sitra Island)", cat: "escal" },
+  { time: "9 Mar", text: "EIA STEO : Brent >$95/bbl pendant 2 mois, production US monte à 13.6Mbpd", cat: "market" },
+  { time: "8 Mar", text: "Iran confirme : Hormuz fermé seulement aux US/Israel et alliés occidentaux", cat: "hormuz" },
+  { time: "7 Mar", text: "Turquie confirme passage navire turc autorisé par Iran à travers Hormuz", cat: "hormuz" },
   { time: "6 Mar", text: "🔴 JOUR 7 : Hegseth 'just getting started'. Israel IDF chief : 'next phase', 2,500 frappes avec 6,000+ armes", cat: "mil" },
   { time: "6 Mar", text: "🔴 Bahrain frappé : hôtel, 2 bâtiments résidentiels, raffinerie. Qatar/Kuwait/Saoudi interceptent missiles", cat: "escal" },
   { time: "6 Mar", text: "🔴 Azerbaijan frappé par l'Iran — 1er pays nouveau touché depuis début conflit", cat: "escal" },
@@ -1047,14 +1095,14 @@ export default function Dashboard() {
 
             <div className="kpi-grid" style={{ marginBottom: 16 }}>
               {[
-                { label: "Brent", val: "$80.5", unit: "/bbl", delta: "Repli du $85 ATH. GS Q2 $76", color: "var(--amber)", bars: [79,78,84,85,80.5], bl: ["L","L*","M","M*","Me"] },
-                { label: "WTI", val: "$75.1", unit: "/bbl", delta: "Iraq -1.5Mbpd. Gas $3.11", color: "var(--amber)", bars: [73,71,77,78,75.1], bl: ["L","L*","M","M*","Me"] },
-                { label: "Or Spot", val: "$5,121", unit: "/oz", delta: "⚠️ -5% M, -3.6% Me. Miners -17%", color: "#eab308", bars: [5300,5400,5042,5000,5121], bl: ["L","L*","M","M*","Me"] },
-                { label: "Hormuz", val: "FERMÉ", unit: "VLCC W700 ATH", delta: "329 tankers bloqués. 72 VLCCs", color: "var(--red)", bars: [30,5,0,0,0], bl: ["L","L*","M","M*","Me"] },
-                { label: "EU Gas", val: "+70%+", unit: "cette sem", delta: "Qatar halt. Iraq stockage plein", color: "var(--blue)", bars: [70,85,100,95,90], bl: ["L","L*","M","M*","Me"] },
-                { label: "VIX", val: "23.2", unit: "", delta: "Repli du 27.3 mais elevated", color: "#8b5cf6", bars: [22,20,27,27.3,23.2], bl: ["L","L*","M","M*","Me"] },
-                { label: "UAE ETF", val: "$20.31", unit: "", delta: "Consulat US Dubai explosé", color: "var(--red)", bars: [20.5,20.3,20.3,20.3,20.3], bl: ["L","L*","M","M*","Me"] },
-                { label: "S&P 500", val: "-0.65%", unit: "mercredi", delta: "Tech rebond, énergie/banques down", color: "#8b5cf6", bars: [99,100,98.4,97,98.5], bl: ["L","L*","M","M*","Me"] },
+                { label: "Brent", val: "$103", unit: "/bbl", delta: ">$100 2 jours. IEA 400M bbl shrugged off", color: "var(--amber)", bars: [89,120,92,100,103], bl: ["J7","J10","J11","J13","J16"] },
+                { label: "WTI", val: "$98.7", unit: "/bbl", delta: "Near $100. Gas US +23% depuis guerre", color: "var(--amber)", bars: [80,95,85,96,98.7], bl: ["J7","J10","J11","J13","J16"] },
+                { label: "Or Spot", val: "$5,018", unit: "/oz", delta: "Teste $5,000 support. DXY headwind", color: "#eab308", bars: [5080,5100,5050,5062,5018], bl: ["J7","J10","J11","J13","J16"] },
+                { label: "Hormuz", val: "MINÉ", unit: "~0 transit", delta: "Iran mine le détroit. Passage sélectif Inde/Iran", color: "var(--red)", bars: [5,2,0,0,0], bl: ["J7","J10","J11","J13","J16"] },
+                { label: "IEA SPR", val: "400M", unit: "bbl", delta: "Record. US 172M/120j. '26 jours seulement'", color: "var(--blue)", bars: [0,0,400,400,400], bl: ["J7","J10","J11","J13","J16"] },
+                { label: "VIX", val: "27.3", unit: "", delta: "Elevated. S&P 6,632 (-0.61% ven)", color: "#8b5cf6", bars: [23,28,25,28,27.3], bl: ["J7","J10","J11","J13","J16"] },
+                { label: "VLCC TD3C", val: "$486K", unit: "/day", delta: "W473+ — ATH zone. Mines = blocus renforcé", color: "var(--blue)", bars: [424,486,450,486,486], bl: ["J7","J10","J11","J13","J16"] },
+                { label: "S&P 500", val: "6,632", unit: "", delta: "-1.52% jeu, -0.61% ven. 3.5-month low", color: "#8b5cf6", bars: [6900,6800,6750,6700,6632], bl: ["J7","J10","J11","J13","J16"] },
               ].map((m, i) => (
                 <div key={i} className="kpi-card">
                   <div className="kpi-label">{m.label}</div>
@@ -1083,18 +1131,18 @@ export default function Dashboard() {
 
             {/* Key developments card */}
             <div className="card card-accent" style={{ borderColor: "var(--red)" }}>
-              <div className="card-label" style={{ color: "var(--red)" }}>🔴 DÉVELOPPEMENTS CRITIQUES JOUR 5 (4 MARS)</div>
+              <div className="card-label" style={{ color: "var(--red)" }}>🔴 DÉVELOPPEMENTS CRITIQUES JOUR 17 (16 MARS)</div>
               <div style={{ fontSize: 12, color: "var(--text-mid)", lineHeight: 1.8 }}>
-                <div>• <strong style={{ color: "var(--text)" }}>Iran death toll 1,045+</strong> — frappes continues sur Tehran (Basij, sécurité interne), Karaj, Isfahan</div>
-                <div>• <strong style={{ color: "var(--text)" }}>Turkiye intercepte missile iranien</strong> — NATO air defense détruit balistique dans la Méditerranée orientale</div>
-                <div>• <strong style={{ color: "var(--text)" }}>IRIS Dena coulé</strong> — frégate iranienne torpillée par sous-marin US au large du Sri Lanka</div>
-                <div>• <strong style={{ color: "var(--text)" }}>Consulat US Dubai</strong> — explosions. Ambassades fermées : Kuwait, Liban, Arabie Saoudite</div>
-                <div>• <strong style={{ color: "var(--text)" }}>Bushehr menacé</strong> — Russie avertit, explosions à proximité du périmètre nucléaire</div>
-                <div>• <strong style={{ color: "var(--text)" }}>Container ship frappé au Hormuz</strong> — consolide le blocus. Trump promet assurance/escorte mais marché sceptique</div>
-                <div>• <strong style={{ color: "var(--text)" }}>Or -5% mardi</strong> — profit-taking + DXY fort + taux 10Y hausse. Rebond partiel mercredi à $5,162</div>
-                <div>• <strong style={{ color: "var(--text)" }}>Fed : hold "quite some time"</strong> — rate cuts repoussés à sept 2026. Kashkari/Hammack prudents</div>
-                <div>• <strong style={{ color: "var(--text)" }}>Goldman : Brent Q2 $76 avg</strong> — +$10. "Si Hormuz 5 sem de plus → $100". UBS aussi +$10</div>
-                <div>• <strong style={{ color: "var(--text)" }}>NCRI annonce gouvernement provisoire</strong> — opposition iranienne en exil se positionne pour transition</div>
+                <div>• <strong style={{ color: "var(--text)" }}>Brent >$100 deux jours</strong> — close $103.14 vendredi. WTI $98.71. 1re fois >$100 depuis août 2022</div>
+                <div>• <strong style={{ color: "var(--text)" }}>IEA 400M bbl SPR release</strong> — record historique. US 172M bbl. Marché shrug off : '26 jours de supply perdu seulement'</div>
+                <div>• <strong style={{ color: "var(--text)" }}>Iran mine Hormuz</strong> — US détruit 16 mouilleurs de mines. Iran FM : 'ouvert mais fermé à nos ennemis'</div>
+                <div>• <strong style={{ color: "var(--text)" }}>Trump demande coalition navale</strong> — UK, NATO, Chine sollicités. 'Whatever it takes'. Personne n'accepte publiquement</div>
+                <div>• <strong style={{ color: "var(--text)" }}>Mojtaba Khamenei</strong> — nouveau Supreme Leader ordonne Hormuz fermé comme 'outil de pression'</div>
+                <div>• <strong style={{ color: "var(--text)" }}>Dubai airport SUSPENDU</strong> — drone incident lundi. UAE air defense 'currently responding'</div>
+                <div>• <strong style={{ color: "var(--text)" }}>12+ navires commerciaux frappés</strong> — Thai MV Mayuree Naree en feu, 3 disparus. Ports Oman frappés</div>
+                <div>• <strong style={{ color: "var(--text)" }}>Or teste $5,000</strong> — futures à $4,996. DXY fort. Support psychologique sous pression</div>
+                <div>• <strong style={{ color: "var(--text)" }}>Iran FM Araghchi</strong> — rejette tout dialogue avec US. Trump dit 'not prepared to reach a deal'</div>
+                <div>• <strong style={{ color: "var(--text)" }}>Israel IDF</strong> — prépare 3+ semaines de frappes additionnelles, 'thousands of targets' encore</div>
               </div>
             </div>
           </div>
@@ -1103,7 +1151,7 @@ export default function Dashboard() {
         {/* ─── FLASH NEWS ─── */}
         {tab === "flash" && (
           <div className="animate-in">
-            <div className="card-label">⚡ FIL D'ÉVÉNEMENTS — 28 FÉV → 3 MARS 2026</div>
+            <div className="card-label">⚡ FIL D'ÉVÉNEMENTS — 28 FÉV → 16 MARS 2026</div>
             <div className="card card-flush">
               {FLASH_NEWS.map((n, i) => (
                 <div key={i} className="row" style={{ gap: 12 }}>
@@ -1409,17 +1457,17 @@ export default function Dashboard() {
             ))}
 
             <div className="card" style={{ borderTop: "2px solid var(--red)" }}>
-              <div className="card-label" style={{ color: "var(--red)" }}>🎯 POSITIONNEMENT ACTUEL VS HISTORIQUE — JOUR 7 UPDATE (6 MARS)</div>
+              <div className="card-label" style={{ color: "var(--red)" }}>🎯 POSITIONNEMENT ACTUEL VS HISTORIQUE — JOUR 17 UPDATE (16 MARS)</div>
               <div style={{ fontSize: 12, color: "var(--text-mid)", lineHeight: 1.8 }}>
-                <p style={{ marginBottom: 8 }}>Le conflit Iran 2026 est <strong style={{ color: "var(--text)" }}>sans précédent direct</strong> — VLCC rates ATH (W700), regime change en cours, multi-fronts actifs (Liban, Iraq, Bahrain, Azerbaijan, NATO/Turquie). Hegseth 'just getting started'. Israel 'next phase'. Aucun signal de dé-escalation.</p>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "var(--amber)", fontWeight: 600 }}>Pétrole :</span> Brent spot $89 (+22% 1 sem). Goldman/UBS +$10 forecasts. Iraq -1.5Mbpd forced cuts. Gas US $3.19 (+22¢/sem). Oxford Econ : 'max 2 mois, sell extreme moves'. OilPrice : Canada = 'most reliable supplier' grâce TMX.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#8b5cf6", fontWeight: 600 }}>🏭 Raffineurs US :</span> Diesel crack EU +34% (2-yr high). Ras Tanura fermée. 4.3Mbpd produits raffinés bloqués. MPC = pick #1. Crack spread = upside non-linéaire.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#06b6d4", fontWeight: 600 }}>🏗️ Aluminium NA :</span> Alba force majeure. Qatalum shutdown. LME $3,418 (4-yr high). Citi/Goldman target $3,600. Smelters GCC = 6-12 mois redémarrage.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#ec4899", fontWeight: 600 }}>🧪 Chimie NA :</span> Qatar petrochim down. EU chimie +5% prix. DOW/LYB feedstock = shale gas NA. Supply shift structurel.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#eab308", fontWeight: 600 }}>Or :</span> Correction -6% du ATH ($5,400 → $5,080). DXY fort. MAIS : Dubai air cargo halt = 20% flux physiques bloqués. Premiums physiques Inde flip. Physical market tightens pendant paper vend. Pattern classique — thèse intacte si conflit dure.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#0ea5e9", fontWeight: 600 }}>Tankers :</span> VLCC W700 ATH. $20/bbl freight. 329 bloqués. P&I cancel J2. AIS jamming massif. Bessent 'annonces à venir' mais DFC toujours pas opérationnel. Shipping CEOs : 'not enough until genuinely safe'.</div>
-                <div style={{ marginBottom: 6 }}><span style={{ color: "#22c55e", fontWeight: 600 }}>Fertilisants :</span> Urea +10-16%, phosphate +$30/t. 25% azote mondial via Hormuz. Qatar LNG toujours down. DOJ probe antitrust. 30j supply chain = bombe à retardement.</div>
-                <div><span style={{ color: "var(--red)", fontWeight: 600 }}>Gulf/Dubai :</span> Bahrain frappé (1re fois). Azerbaijan frappé. 500K+ fuient Beirut. Goldman CEO : 'needs weeks to digest'. Le modèle GCC est sous attaque physique — aucun précédent.</div>
+                <p style={{ marginBottom: 8 }}>Le conflit Iran 2026 est <strong style={{ color: "var(--text)" }}>sans précédent direct</strong> — Brent >$100, Hormuz MINÉ, IEA 400M bbl SPR record shrugged off, 12+ navires frappés, Dubai airport suspendu. IEA : 'largest supply disruption in history'. Iran FM rejette dialogue. Coalition navale en discussion mais personne n'accepte.</p>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "var(--amber)", fontWeight: 600 }}>Pétrole :</span> Brent $103+ (>$100 depuis J13). WTI $98.71. IEA 400M bbl = 26 jours seulement. EIA prévoit >$95 pendant 2 mois. Iran menace $200/bbl. Pipeline Saudi E-W actif mais capacité limitée. Exxon/Chevron/Conoco avertissent admin.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#8b5cf6", fontWeight: 600 }}>🏭 Raffineurs US :</span> Crack spreads élevés soutenus. Ras Tanura fermée. 4.3Mbpd produits raffinés bloqués. Gas US +23% depuis guerre.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#06b6d4", fontWeight: 600 }}>🏗️ Aluminium NA :</span> Alba force majeure prolongée. LME élevé. Smelters GCC = 6-12 mois redémarrage même après cessez-le-feu.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#ec4899", fontWeight: 600 }}>🧪 Chimie NA :</span> Qatar petrochim toujours down. EU chimie en crise énergie. Supply shift structurel vers NA continue.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#eab308", fontWeight: 600 }}>Or :</span> $5,018, teste $5,000 support. DXY fort = headwind. MAIS Brent >$100 = inflation énergie soutient thèse structurelle. Dubai airport suspendu = physical market disrupté. Sous-performe pétrole — normal dans les 2-3 premières semaines.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#0ea5e9", fontWeight: 600 }}>Tankers :</span> VLCC W473+ / $486K/day. Iran mine Hormuz (16 mouilleurs détruits). P&I toujours annulé. Passage sélectif (Inde/Turquie). Coalition escorte en discussion — fin mars au plus tôt. IEA : 'no substitute for restoring Hormuz access'.</div>
+                <div style={{ marginBottom: 6 }}><span style={{ color: "#22c55e", fontWeight: 600 }}>Fertilisants :</span> Supply chain 30j Gulf→US en cours — si conflit dure 5+ semaines, supply n'arrivera pas pour planting season. Qatar LNG toujours down.</div>
+                <div><span style={{ color: "var(--red)", fontWeight: 600 }}>Gulf/Dubai :</span> Dubai airport suspendu lundi (drone). UAE air defense 'currently responding'. Umm al Quwain touché. Fujairah oil facility frappée. F1 GP Bahrain/Saudi annulés. Le modèle GCC sous attaque physique continue — aucun signe d'arrêt.</div>
               </div>
             </div>
           </div>
@@ -1457,7 +1505,7 @@ export default function Dashboard() {
       </main>
 
       <footer style={{ padding: "10px 28px", borderTop: "1px solid var(--border)", fontSize: 9, color: "var(--border)", textAlign: "center" }}>
-        Données manuelles — Jour 7 — {new Date().toLocaleDateString("fr-CA")} — Dernière MàJ: vendredi 6 mars 2026 (données J7 — Bahrain/Azerbaijan strikes, Brent $89, Or $5,080, fertilisants +10-16%)
+        Données manuelles — Jour 17 — {new Date().toLocaleDateString("fr-CA")} — Dernière MàJ: lundi 16 mars 2026 (données J17 — Brent $103+, Or $5,018, Hormuz miné, IEA 400M bbl SPR, Dubai airport suspendu, coalition navale en discussion)
       </footer>
     </div>
   );
